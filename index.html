@@ -445,6 +445,29 @@ button{font-family:inherit;cursor:pointer;}
   }
 }
 
+
+/* ---------- MEGA DISCOUNT BADGE ---------- */
+.discount-badge{
+  position:absolute;top:24px;left:-18px;
+  background:linear-gradient(135deg,var(--maroon-deeper),var(--maroon));
+  color:var(--cream-text);padding:18px 22px;border-radius:var(--radius-md);
+  box-shadow:0 15px 35px rgba(0,0,0,.18);border:2px solid var(--gold);
+  z-index:2;text-align:center;min-width:145px;
+}
+.discount-badge .discount-title{
+  font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--gold-light);
+  font-weight:700;line-height:1.05;letter-spacing:.04em;text-transform:uppercase;
+}
+.discount-badge .discount-percent{
+  font-family:'Cormorant Garamond',serif;font-size:2.5rem;color:var(--gold-light);
+  font-weight:700;line-height:1;margin-top:6px;
+}
+@media(max-width:480px){
+  .discount-badge{top:16px;left:max(12px,env(safe-area-inset-left));padding:14px 17px;min-width:125px;}
+  .discount-badge .discount-title{font-size:1rem;}
+  .discount-badge .discount-percent{font-size:2rem;}
+}
+
 /* ---------- WHY US ---------- */
 .why-us{background:var(--maroon-deeper);position:relative;overflow:hidden;}
 .why-us::before{
@@ -1014,6 +1037,10 @@ footer ul a:hover{color:var(--gold-light);}
       <!-- TEMPORARY IMAGE - REPLACE WITH ACTUAL SRI MANIKANDAN AGENCIES IMAGE -->
       <div class="animated-img-wrap">
         <img src="jj.jpeg" alt="Fireworks display representing Manikandan Agencies & Manikandan Pyrotec celebrations">
+      </div>
+      <div class="discount-badge">
+        <div class="discount-title">Mega Discount</div>
+        <div class="discount-percent">80%</div>
       </div>
       <div class="about-badge">
         <div class="num">1995</div>
