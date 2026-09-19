@@ -389,6 +389,13 @@ button{font-family:inherit;cursor:pointer;}
   .hero-badge,.hero-eyebrow,.hero h1,.hero p.sub,.hero-ctas{animation:none;opacity:1;transform:none;}
 }
 
+
+/* Price list is the primary landing section */
+.hero{min-height:180px;height:180px;}
+.hero-bg,.hero-overlay,.hero-content,.hero-scroll{display:none;}
+.collection{padding-top:120px;}
+@media(max-width:768px){.hero{display:none}.collection{padding-top:100px}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-card .p-body{padding:12px 10px 6px}.product-card .p-footer{padding:10px 10px 14px}.p-select-btn{width:100%;padding:9px 5px;font-size:.65rem}.p-qty{justify-content:center;gap:10px}}
+
 /* ---------- ABOUT ---------- */
 .about{background:var(--ivory);}
 .about-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:70px;align-items:center;}
@@ -494,6 +501,81 @@ button{font-family:inherit;cursor:pointer;}
 @media(max-width:480px){
   .why-grid{grid-template-columns:1fr;}
   .why-card { padding: 30px 24px; }
+}
+
+/* ---------- 50% DISCOUNT MENU CATALOGUE ---------- */
+.discount-hero-strip{
+  margin-top:24px;display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:15px 18px;border:1px solid rgba(201,162,39,.55);
+  border-radius:12px;background:linear-gradient(135deg,#fff7dc,#fff);
+  color:var(--maroon-deeper);font-size:.9rem;letter-spacing:.08em;text-align:center;
+  box-shadow:0 10px 24px rgba(92,13,18,.08);
+}
+.discount-spark{color:var(--gold);font-size:1.1rem;}
+.products-anchor{scroll-margin-top:100px;}
+.selected-summary{
+  margin-top:28px;padding:22px;background:linear-gradient(135deg,#fff,#fbf6ec);
+  border:1px solid rgba(201,162,39,.45);border-radius:14px;box-shadow:0 14px 35px rgba(33,20,10,.08);
+}
+.selected-summary-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px;}
+.selected-summary-head h3{font-size:1.55rem;color:var(--maroon-deeper);margin-top:4px;}
+.selected-count{padding:7px 11px;border-radius:999px;background:var(--maroon-deeper);color:var(--gold-light);font-size:.75rem;font-weight:700;white-space:nowrap;}
+.selected-summary-list{display:flex;flex-direction:column;gap:8px;}
+.selected-summary-item{display:grid;grid-template-columns:1fr auto auto auto;align-items:center;gap:12px;padding:11px 12px;background:#fff;border-radius:10px;border:1px solid rgba(92,13,18,.10);}
+.selected-summary-item .ssi-name{font-weight:700;color:var(--maroon-deeper);min-width:0;}
+.selected-summary-item .ssi-pack{font-size:.75rem;color:var(--charcoal-soft);}
+.selected-summary-item .ssi-price{font-weight:800;color:var(--maroon);white-space:nowrap;}
+.selected-summary-item .ssi-remove{border:0;background:transparent;color:var(--maroon);font-size:1.2rem;cursor:pointer;padding:4px 7px;}
+.selected-empty{padding:14px;text-align:center;color:var(--charcoal-soft);font-size:.86rem;border:1px dashed rgba(92,13,18,.18);border-radius:10px;}
+.selected-summary-total{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(92,13,18,.14);color:var(--charcoal-soft);}
+.selected-summary-total strong{font-size:1.3rem;color:var(--maroon);}
+.selected-send-btn{margin-top:14px;width:100%;justify-content:center;}
+.legacy-anchor{display:block;position:relative;top:-100px;visibility:hidden;}
+
+/* Product rows are intentionally text/menu based — no product photos in the price list. */
+.product-card{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;
+  min-height:82px;padding:15px 16px;border-radius:12px;cursor:default;
+  background:linear-gradient(135deg,#fff,#fbf6ec);border:1px solid rgba(201,162,39,.22);
+  box-shadow:0 5px 16px rgba(33,20,10,.05);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+}
+.product-card::before{display:none;}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(92,13,18,.09);border-color:rgba(201,162,39,.55);}
+.product-card.selected{border-color:var(--gold);box-shadow:0 0 0 2px rgba(201,162,39,.35),0 12px 24px rgba(92,13,18,.10);}
+.product-card .p-image-wrap{display:none;}
+.product-card .p-body{padding:0;min-width:0;}
+.product-card .p-cat{font-size:.63rem;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-dim);font-weight:800;margin:0;}
+.product-card .p-name{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.98rem;color:var(--maroon-deeper);margin:3px 0 0;line-height:1.3;}
+.product-card .p-pack{font-size:.72rem;color:var(--charcoal-soft);margin:3px 0 0;font-style:normal;}
+.product-card .p-price{margin:5px 0 0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:.92rem;font-weight:900;color:var(--maroon);}
+.product-card .p-price .old-price{text-decoration:line-through;color:#777;font-weight:600;font-size:.76rem;}
+.product-card .p-price .discount-price{color:#b00020;font-size:1rem;}
+.product-card .p-price .discount-tag{font-size:.58rem;letter-spacing:.05em;padding:3px 6px;border-radius:999px;background:#b00020;color:#fff;font-weight:800;}
+.product-card .p-total{font-size:.75rem;color:var(--maroon);font-weight:800;margin:4px 0 0;}
+.product-card .p-footer{padding:0;display:flex;align-items:center;justify-content:flex-end;gap:9px;}
+.p-select-btn{align-self:center;min-width:92px;padding:9px 12px;border-radius:999px;border:1.5px solid var(--gold);background:#fff;color:var(--maroon-deeper);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:800;transition:all .25s ease;}
+.p-select-btn:hover{background:var(--gold-light);box-shadow:0 5px 14px rgba(201,162,39,.25);}
+.p-select-btn.is-selected{background:linear-gradient(135deg,var(--gold),var(--gold-light));border-color:var(--gold);color:var(--maroon-deeper);}
+.p-qty{display:flex;align-items:center;gap:7px;}
+.qty-btn{width:28px;height:28px;}
+.qty-val{min-width:18px;font-size:.85rem;}
+@media(max-width:768px){
+  .discount-hero-strip{font-size:.72rem;letter-spacing:.045em;padding:13px 10px;gap:7px;}
+  .selected-summary{margin-top:20px;padding:15px;}
+  .selected-summary-head h3{font-size:1.25rem;}
+  .selected-summary-item{grid-template-columns:1fr auto;gap:7px 10px;padding:11px;}
+  .selected-summary-item .ssi-pack{grid-column:1;}
+  .selected-summary-item .ssi-price{grid-column:1;}
+  .selected-summary-item .ssi-remove{grid-column:2;grid-row:1 / span 3;align-self:center;}
+  .product-grid{grid-template-columns:1fr !important;gap:10px;}
+  .product-card{grid-template-columns:minmax(0,1fr) auto;min-height:92px;padding:13px 12px;}
+  .product-card .p-name{font-size:.91rem;}
+  .product-card .p-price{font-size:.86rem;}
+  .product-card .p-price .discount-price{font-size:.94rem;}
+  .product-card .p-footer{flex-direction:column;align-items:flex-end;}
+  .p-select-btn{min-width:82px;padding:8px 10px;font-size:.64rem;}
+  .p-qty{gap:5px;}
 }
 
 /* ---------- COLLECTION / CATEGORIES ---------- */
@@ -627,7 +709,43 @@ button{font-family:inherit;cursor:pointer;}
 }
 .qty-btn:hover{border-color:var(--gold);background:var(--ivory-dim);box-shadow:0 2px 8px rgba(201,162,39,.2);}
 .qty-val{min-width:22px;text-align:center;font-size:.96rem;font-weight:700;color:var(--maroon-deeper);}
+
+.product-card .p-image-wrap{height:150px;background:#fff;display:flex;align-items:center;justify-content:center;padding:12px;border-bottom:1px solid rgba(201,162,39,.12);}
+.product-card .p-image{width:100%;height:100%;object-fit:contain;border-radius:4px;}
+.product-card .p-price{font-size:1.15rem;font-weight:800;color:var(--maroon);margin-top:10px;}
+.product-card .p-total{font-size:.82rem;color:var(--charcoal-soft);margin-top:4px;}
+.price-download-btn{align-self:flex-start;}
+@media(max-width:768px){.product-card .p-image-wrap{height:120px;padding:8px}.product-card .p-price{font-size:1rem}.price-download-btn{width:100%;justify-content:center}}
 .no-results{padding:60px 20px;text-align:center;color:var(--charcoal-soft);font-size:.96rem;}
+
+/* Final catalogue overrides — keep the price list menu-style on desktop and mobile */
+.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.product-card{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;min-height:82px;padding:15px 16px;border-radius:12px;cursor:default;background:linear-gradient(135deg,#fff,#fbf6ec);border:1px solid rgba(201,162,39,.22);box-shadow:0 5px 16px rgba(33,20,10,.05);}
+.product-card::before{display:none;}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(92,13,18,.09);border-color:rgba(201,162,39,.55);}
+.product-card .p-image-wrap{display:none !important;}
+.product-card .p-body{padding:0 !important;min-width:0;}
+.product-card .p-cat{font-size:.63rem !important;letter-spacing:.09em;text-transform:uppercase;color:var(--gold-dim);font-weight:800;margin:0;}
+.product-card .p-name{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.98rem;color:var(--maroon-deeper);margin:3px 0 0;line-height:1.3;}
+.product-card .p-pack{font-size:.72rem;color:var(--charcoal-soft);margin:3px 0 0;font-style:normal;}
+.product-card .p-price{margin:5px 0 0;display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:.92rem;font-weight:900;color:var(--maroon);}
+.product-card .p-price .old-price{text-decoration:line-through;color:#777;font-weight:600;font-size:.76rem;}
+.product-card .p-price .discount-price{color:#b00020;font-size:1rem;}
+.product-card .p-price .discount-tag{font-size:.58rem;letter-spacing:.05em;padding:3px 6px;border-radius:999px;background:#b00020;color:#fff;font-weight:800;}
+.product-card .p-total{font-size:.75rem;color:var(--maroon);font-weight:800;margin:4px 0 0;}
+.product-card .p-footer{padding:0 !important;display:flex;align-items:center;justify-content:flex-end;gap:9px;}
+.p-select-btn{align-self:center;min-width:92px;padding:9px 12px;border-radius:999px;border:1.5px solid var(--gold);background:#fff;color:var(--maroon-deeper);font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;font-weight:800;transition:all .25s ease;}
+.p-select-btn:hover{background:var(--gold-light);box-shadow:0 5px 14px rgba(201,162,39,.25);}
+.p-select-btn.is-selected{background:linear-gradient(135deg,var(--gold),var(--gold-light));border-color:var(--gold);color:var(--maroon-deeper);}
+@media(max-width:768px){
+  .product-grid{grid-template-columns:1fr !important;gap:10px;}
+  .product-card{grid-template-columns:minmax(0,1fr) auto;min-height:92px;padding:13px 12px;}
+  .product-card .p-name{font-size:.91rem;}
+  .product-card .p-price{font-size:.86rem;}
+  .product-card .p-price .discount-price{font-size:.94rem;}
+  .product-card .p-footer{flex-direction:column;align-items:flex-end;}
+  .p-select-btn{min-width:82px;padding:8px 10px;font-size:.64rem;}
+}
 
 /* Sticky selection bar (floating) — hidden until products selected */
 .sticky-select-bar{
@@ -643,8 +761,15 @@ button{font-family:inherit;cursor:pointer;}
   to{opacity:1;transform:translate(-50%,0);}
 }
 .sticky-select-bar.show{display:flex;}
+.sticky-select-bar .ssb-info{display:flex;align-items:center;gap:12px;min-width:0;}
 .sticky-select-bar .ssb-count{font-size:.88rem;white-space:nowrap;}
 .sticky-select-bar .ssb-count strong{color:var(--gold-light);font-size:1rem;}
+.sticky-select-bar .ssb-total{font-size:1.05rem;font-weight:800;color:#fff;white-space:nowrap;padding-left:12px;border-left:1px solid rgba(233,205,124,.45);}
+@media(max-width:520px){
+  .sticky-select-bar .ssb-info{gap:8px;}
+  .sticky-select-bar .ssb-count{font-size:.78rem;}
+  .sticky-select-bar .ssb-total{font-size:.95rem;padding-left:8px;}
+}
 @media(max-width:760px){
   .sticky-select-bar{
     bottom:calc(16px + env(safe-area-inset-bottom));
@@ -694,6 +819,7 @@ button{font-family:inherit;cursor:pointer;}
 .eq-item .eq-item-actions{display:flex;align-items:center;gap:10px;flex:none;}
 .eq-item .eq-item-actions .qty-btn{width:26px;height:26px;font-size:.9rem;}
 .eq-item .eq-remove{background:none;border:none;color:var(--maroon);font-size:1.1rem;line-height:1;flex:none;}
+.eq-grand-total{margin-top:14px;text-align:right;font-size:1rem;color:var(--maroon);padding-top:12px;border-top:1px solid rgba(92,13,18,.18)}
 .eq-empty{font-size:.86rem;color:var(--charcoal-soft);font-style:italic;margin-top:16px;}
 .eq-body form{margin-top:24px;}
 
@@ -973,9 +1099,628 @@ footer ul a:hover{color:var(--gold-light);}
     min-height: -webkit-fill-available;
   }
 }
+
+/* ---------- MOBILE LOGO + BANNER SLIDER ---------- */
+.mobile-banner-slider{display:none;}
+
+@media (max-width:768px){
+  /* Header: only the logo stays in the dark-blue top strip. */
+  .navbar{
+    height:62px !important;
+    min-height:62px !important;
+    padding:0 !important;
+    background:#0e1830 !important;
+    border-bottom:1px solid rgba(201,162,39,.28);
+  }
+  .navbar .rail{
+    height:62px !important;
+    min-height:62px !important;
+    padding:0 14px !important;
+    justify-content:center !important;
+  }
+  .brand{
+    width:100%;
+    max-width:none !important;
+    justify-content:center !important;
+    margin:0 !important;
+  }
+  .brand img{
+    width:48px !important;
+    height:48px !important;
+    box-shadow:0 0 0 1.5px rgba(201,162,39,.75),0 4px 12px rgba(0,0,0,.35) !important;
+  }
+  .brand-text{display:none !important;}
+  .nav-links{display:none !important;}
+  .nav-cta{
+    display:block !important;
+    position:absolute;
+    right:8px;
+    top:50%;
+    transform:translateY(-50%);
+  }
+  .nav-cta .btn{display:none !important;}
+  .hamburger{
+    display:flex !important;
+    position:static !important;
+    transform:none !important;
+    width:40px !important;
+    height:40px !important;
+    padding:7px !important;
+    gap:5px !important;
+  }
+
+  /* Put the rotating banner immediately below the blue logo strip. */
+  .hero{
+    display:block !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin-top:62px;
+    padding:0 !important;
+    background:var(--ivory) !important;
+    overflow:hidden;
+  }
+  .hero-bg,.hero-overlay{display:none !important;}
+  .hero-content{
+    display:block !important;
+    max-width:none !important;
+    width:100%;
+    padding:0 !important;
+  }
+  .mobile-banner-slider{
+    display:block;
+    position:relative;
+    width:100%;
+    aspect-ratio:16/8.2;
+    overflow:hidden;
+    background:#eee;
+  }
+  .mobile-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transform:scale(1.02);
+    transition:opacity .65s ease,transform 4.8s ease;
+    pointer-events:none;
+  }
+  .mobile-slide.is-active{
+    opacity:1;
+    transform:scale(1);
+  }
+  .mobile-slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .mobile-slider-dots{
+    position:absolute;
+    left:0;right:0;bottom:9px;
+    display:flex;justify-content:center;gap:6px;
+    z-index:3;
+  }
+  .mobile-slider-dots span{
+    width:7px;height:7px;border-radius:50%;
+    background:rgba(255,255,255,.65);
+    box-shadow:0 1px 4px rgba(0,0,0,.35);
+    transition:transform .25s ease,background .25s ease;
+  }
+  .mobile-slider-dots span.active{
+    background:var(--gold-light);
+    transform:scale(1.35);
+  }
+
+  /* Collection starts directly under the slider. */
+  .collection{padding-top:42px !important;}
+}
+
+/* ---------- FINAL MOBILE FIXES ---------- */
+@media (max-width: 768px){
+  /* Keep the main navbar visible and usable on phones */
+  .navbar{
+    display:block !important;
+    position:fixed !important;
+    top:0 !important;
+    left:0 !important;
+    right:0 !important;
+    z-index:5000 !important;
+    min-height:56px;
+    background:rgba(14,24,48,.98) !important;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+  }
+  .navbar .rail{
+    min-height:56px;
+    width:100%;
+    padding:7px 12px !important;
+  }
+  .brand{max-width:calc(100% - 42px);}
+  .brand img{width:34px !important;height:34px !important;}
+  .brand-text .name{font-size:clamp(.72rem,3.2vw,.88rem) !important;}
+  .brand-text .tag{font-size:.47rem !important;}
+  .hamburger{display:flex !important;right:8px !important;z-index:5002;}
+
+  /* Leave enough room below the fixed navbar */
+  .collection{padding-top:88px !important;}
+
+  /* TWO-COLUMN product menu on mobile */
+  .product-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:10px !important;
+    align-items:stretch;
+  }
+  .product-card{
+    display:flex !important;
+    flex-direction:column !important;
+    justify-content:space-between !important;
+    min-width:0 !important;
+    min-height:178px !important;
+    padding:12px 10px !important;
+    border-radius:12px !important;
+  }
+  .product-card .p-body{
+    width:100%;
+    padding:0 !important;
+  }
+  .product-card .p-cat{
+    font-size:.55rem !important;
+    letter-spacing:.06em !important;
+  }
+  .product-card .p-name{
+    font-size:.82rem !important;
+    line-height:1.25 !important;
+    margin-top:4px !important;
+    overflow-wrap:anywhere;
+  }
+  .product-card .p-pack{
+    font-size:.66rem !important;
+    margin-top:4px !important;
+  }
+  .product-card .p-price{
+    gap:4px !important;
+    margin-top:7px !important;
+    font-size:.76rem !important;
+  }
+  .product-card .p-price .old-price{font-size:.62rem !important;}
+  .product-card .p-price .discount-price{font-size:.88rem !important;}
+  .product-card .p-price .discount-tag{
+    font-size:.48rem !important;
+    padding:3px 5px !important;
+  }
+  .product-card .p-total{font-size:.63rem !important;}
+  .product-card .p-footer{
+    width:100%;
+    padding:8px 0 0 !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:5px !important;
+  }
+  .p-select-btn{
+    min-width:58px !important;
+    width:auto !important;
+    padding:7px 10px !important;
+    font-size:.58rem !important;
+  }
+  .p-qty{gap:4px !important;}
+  .qty-btn{width:25px !important;height:25px !important;font-size:.8rem !important;}
+  .qty-val{min-width:14px !important;font-size:.75rem !important;}
+
+  /* Sticky selected bar: compact and never cover the last products */
+  .sticky-select-bar{
+    left:8px !important;
+    right:8px !important;
+    bottom:calc(8px + env(safe-area-inset-bottom)) !important;
+    transform:none !important;
+    width:auto !important;
+    max-width:none !important;
+    min-height:58px;
+    padding:8px 9px !important;
+    border-radius:18px !important;
+    gap:8px !important;
+    justify-content:space-between !important;
+  }
+  .sticky-select-bar .ssb-info{
+    flex:1 1 auto;
+    min-width:0;
+    gap:7px !important;
+    overflow:hidden;
+  }
+  .sticky-select-bar .ssb-count{
+    font-size:.70rem !important;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .sticky-select-bar .ssb-count strong{font-size:.85rem !important;}
+  .sticky-select-bar .ssb-total{
+    font-size:.82rem !important;
+    padding-left:7px !important;
+  }
+  .sticky-select-bar .btn{
+    flex:0 0 auto;
+    width:auto !important;
+    max-width:48%;
+    min-height:42px;
+    padding:9px 11px !important;
+    font-size:.60rem !important;
+    line-height:1.15;
+    white-space:normal;
+  }
+
+  /* Prevent floating bar from covering the last row */
+  body.bar-active .collection{
+    padding-bottom:calc(150px + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (max-width:380px){
+  .product-grid{gap:8px !important;}
+  .product-card{min-height:170px !important;padding:10px 8px !important;}
+  .product-card .p-name{font-size:.77rem !important;}
+  .product-card .p-price .discount-price{font-size:.82rem !important;}
+  .p-select-btn{min-width:54px !important;padding:6px 8px !important;font-size:.55rem !important;}
+  .sticky-select-bar .ssb-total{font-size:.75rem !important;}
+  .sticky-select-bar .btn{font-size:.56rem !important;padding:8px 9px !important;}
+}
+
+
+/* ---------- MOBILE FINAL LAYOUT: HEADER + CENTER LOGO + NAV + SLIDER ---------- */
+@media (max-width:768px){
+  .navbar{
+    height:72px !important;
+    min-height:72px !important;
+    position:fixed !important;
+    top:0 !important;left:0 !important;right:0 !important;
+    z-index:5000 !important;
+    background:#0e1830 !important;
+    padding:0 !important;
+  }
+  .navbar .rail{
+    height:72px !important;min-height:72px !important;
+    padding:0 12px !important;
+    justify-content:center !important;
+  }
+  .brand{
+    width:auto !important;max-width:100% !important;
+    margin:0 auto !important;gap:8px !important;
+    justify-content:center !important;
+  }
+  .brand img{
+    width:42px !important;height:42px !important;
+    flex:none !important;
+  }
+  .brand-text{
+    display:flex !important;
+    align-items:flex-start !important;
+    text-align:left !important;
+    max-width:calc(100vw - 82px) !important;
+  }
+  .brand-text .name{
+    display:block !important;
+    font-size:clamp(.76rem,3.5vw,.98rem) !important;
+    line-height:1.05 !important;
+    white-space:nowrap !important;
+  }
+  .brand-text .tag{
+    display:block !important;
+    font-size:.46rem !important;
+    letter-spacing:.08em !important;
+    white-space:nowrap !important;
+    margin-top:3px !important;
+  }
+  .nav-links{display:none !important;}
+  .nav-cta{display:none !important;}
+  .hamburger{display:none !important;}
+
+  /* Mobile hero starts below the fixed top header */
+  .hero{
+    display:block !important;
+    margin-top:72px !important;
+    height:auto !important;min-height:0 !important;
+    padding:0 !important;background:var(--ivory) !important;
+    overflow:hidden !important;
+  }
+  .hero-bg,.hero-overlay{display:none !important;}
+  .hero-content{
+    display:block !important;max-width:none !important;
+    width:100% !important;padding:0 !important;
+  }
+
+  /* Second centered logo */
+  /* Navigation comes FIRST, then the larger centered logo. */
+  .mobile-direct-nav{
+    order:1 !important;
+  }
+  .mobile-center-logo-wrap{
+    order:2 !important;
+    display:flex !important;justify-content:center;align-items:center;
+    height:96px !important;padding:10px 0 10px !important;
+    background:#fffaf1 !important;
+  }
+  .mobile-center-logo{
+    width:76px !important;height:76px !important;
+    object-fit:contain !important;border-radius:50% !important;
+    box-shadow:0 0 0 2px rgba(201,162,39,.72),0 5px 16px rgba(0,0,0,.18) !important;
+  }
+
+  /* Real navigation links, no hamburger / three dots */
+  .mobile-direct-nav{
+    display:flex !important;align-items:center !important;
+    gap:18px !important;width:100% !important;
+    padding:10px 14px !important;
+    overflow-x:auto !important;overflow-y:hidden !important;
+    white-space:nowrap !important;
+    background:#0e1830 !important;
+    scrollbar-width:none !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+  .mobile-direct-nav::-webkit-scrollbar{display:none !important;}
+  .mobile-direct-nav a{
+    flex:0 0 auto !important;color:#f3e9d2 !important;
+    font-family:'DM Sans',sans-serif !important;
+    font-size:.72rem !important;font-weight:700 !important;
+    letter-spacing:.05em !important;text-transform:uppercase !important;
+    padding:4px 0 !important;
+    position:relative !important;
+  }
+  .mobile-direct-nav a::after{
+    content:'' !important;position:absolute !important;left:0;right:0;bottom:0;
+    height:2px;background:var(--gold-light);transform:scaleX(0);
+    transition:transform .25s ease;
+  }
+  .mobile-direct-nav a:active::after,.mobile-direct-nav a:focus::after{transform:scaleX(1);}
+
+  /* Slider image directly below navbar */
+  .mobile-banner-slider{
+    display:block !important;position:relative !important;
+    width:100% !important;aspect-ratio:16/9 !important;
+    overflow:hidden !important;background:#eee !important;
+  }
+  .mobile-slide img{width:100% !important;height:100% !important;object-fit:cover !important;}
+
+  /* Remove the text block requested by user; banner image owns this space */
+  .collection{padding-top:0 !important;}
+  .collection .section-head{display:none !important;}
+  .catalogue-toolbar{margin-top:24px !important;}
+}
+@media (min-width:769px){
+  .mobile-center-logo-wrap,.mobile-direct-nav{display:none !important;}
+}
+
+
+
+/* ---------- FINAL MOBILE POLISH: LARGER LOGO + TALL PROMO SLIDER ---------- */
+@media (max-width:768px){
+  /* Keep the direct navigation above the centered logo. */
+  .mobile-direct-nav{
+    order:1 !important;
+    min-height:50px !important;
+    padding:11px 14px !important;
+    gap:18px !important;
+    border-top:1px solid rgba(201,162,39,.18) !important;
+    border-bottom:1px solid rgba(201,162,39,.28) !important;
+  }
+
+  /* Premium centered logo area — larger, cleaner and more prominent. */
+  .mobile-center-logo-wrap{
+    order:2 !important;
+    position:relative !important;
+    height:126px !important;
+    padding:12px 0 !important;
+    background:
+      radial-gradient(circle at center, rgba(233,205,124,.22) 0 34%, transparent 35%),
+      linear-gradient(180deg,#fffdf8 0%,#fbf2df 100%) !important;
+    border-bottom:1px solid rgba(201,162,39,.20) !important;
+    overflow:hidden !important;
+  }
+  .mobile-center-logo-wrap::before{
+    content:"" !important;
+    position:absolute !important;
+    width:112px !important;
+    height:112px !important;
+    left:50% !important;
+    top:50% !important;
+    transform:translate(-50%,-50%) !important;
+    border:1px solid rgba(201,162,39,.42) !important;
+    border-radius:50% !important;
+    box-shadow:0 0 0 7px rgba(201,162,39,.07),0 10px 28px rgba(92,13,18,.10) !important;
+    pointer-events:none !important;
+  }
+  .mobile-center-logo{
+    position:relative !important;
+    z-index:2 !important;
+    width:104px !important;
+    height:104px !important;
+    object-fit:contain !important;
+    border-radius:50% !important;
+    background:#fff !important;
+    padding:3px !important;
+    box-shadow:
+      0 0 0 2px var(--gold) !important,
+      0 0 0 6px rgba(255,255,255,.9) !important,
+      0 10px 24px rgba(33,20,10,.20) !important;
+    filter:drop-shadow(0 3px 5px rgba(92,13,18,.12)) !important;
+  }
+
+  /* Make the promotional image area tall enough to fill the marked space. */
+  .mobile-banner-slider{
+    order:3 !important;
+    width:100% !important;
+    height:clamp(380px,92vw,460px) !important;
+    aspect-ratio:auto !important;
+    overflow:hidden !important;
+    background:#eee !important;
+  }
+  .mobile-slide img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+  }
+
+  /* Keep the catalogue directly after the enlarged slider. */
+  .catalogue-toolbar{margin-top:24px !important;}
+}
+@media (max-width:390px){
+  .mobile-center-logo-wrap{height:116px !important;}
+  .mobile-center-logo-wrap::before{width:104px !important;height:104px !important;}
+  .mobile-center-logo{width:96px !important;height:96px !important;}
+  .mobile-banner-slider{height:380px !important;}
+}
+
+/* ---------- MOBILE NAV: SIX LINKS + STAYS VISIBLE WHILE SCROLLING ---------- */
+@media (max-width:768px){
+  .navbar{
+    position:fixed !important;
+    top:0 !important;
+    z-index:5000 !important;
+  }
+  .mobile-direct-nav{
+    position:fixed !important;
+    top:72px !important;
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    z-index:4999 !important;
+    min-height:48px !important;
+    height:48px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:17px !important;
+    padding:8px 14px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    white-space:nowrap !important;
+    background:#0e1830 !important;
+    border-top:1px solid rgba(201,162,39,.18) !important;
+    border-bottom:1px solid rgba(201,162,39,.35) !important;
+    box-shadow:0 5px 16px rgba(0,0,0,.16) !important;
+  }
+  .mobile-direct-nav a{
+    flex:0 0 auto !important;
+    font-size:.68rem !important;
+    font-weight:700 !important;
+    letter-spacing:.035em !important;
+    text-transform:uppercase !important;
+    color:#f3e9d2 !important;
+    padding:4px 0 !important;
+  }
+  /* Reserve the fixed nav's space so the logo/banner do not jump underneath it. */
+  .hero{
+    margin-top:120px !important;
+  }
+}
+
+/* ---------- DOWNLOAD PRICE LIST BUTTON ---------- */
+.price-list-download-wrap{
+  display:flex;
+  justify-content:center;
+  margin:6px 0 28px;
+}
+.price-list-download{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  padding:13px 22px;
+  min-height:48px;
+  border-radius:28px;
+  background:linear-gradient(135deg,var(--maroon-deeper),var(--maroon),#8f1820);
+  color:#fff;
+  border:1.5px solid var(--gold-light);
+  text-decoration:none;
+  font-weight:800;
+  font-size:.82rem;
+  letter-spacing:.055em;
+  text-transform:uppercase;
+  box-shadow:0 8px 24px rgba(92,13,18,.24),0 0 0 1px rgba(233,205,124,.12);
+  animation:priceListPulse 1.7s ease-in-out infinite;
+  overflow:hidden;
+}
+.price-list-download::after{
+  content:"";
+  position:absolute;
+  top:0;left:-80%;width:45%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.42),transparent);
+  transform:skewX(-18deg);
+  animation:priceListShine 2.6s ease-in-out infinite;
+}
+.price-list-download:hover{
+  color:#fff;
+  transform:translateY(-2px) scale(1.02);
+  box-shadow:0 12px 30px rgba(92,13,18,.32),0 0 24px rgba(233,205,124,.42);
+}
+.price-list-download .pdf-icon{font-size:1.05rem;line-height:1;}
+@keyframes priceListPulse{
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.035);}
+}
+@keyframes priceListShine{
+  0%,55%{left:-80%;}
+  75%,100%{left:140%;}
+}
+@media(max-width:768px){
+  .price-list-download-wrap{margin:4px 0 22px;padding:0 2px;}
+  .price-list-download{width:100%;font-size:.78rem;padding:13px 15px;}
+}
+
+
+
+/* ---------- FULLSCREEN VIDEO INTRO ---------- */
+#siteVideoIntro{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  width:100vw;
+  height:100dvh;
+  background:#050914;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:1;
+  visibility:visible;
+  transition:opacity .65s ease, visibility .65s ease;
+}
+#siteVideoIntro.is-hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+#siteVideoIntro video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  object-position:center center;
+  background:#050914;
+}
+body.intro-active{
+  overflow:hidden !important;
+}
+@media (min-width:769px){
+  #siteVideoIntro{
+    display:none !important;
+  }
+}
+@media (max-width:768px){
+  #siteVideoIntro video{
+    object-fit:cover;
+    object-position:center center;
+  }
+}
 </style>
 </head>
 <body>
+
+  <!-- 3-second cinematic fireworks intro -->
+  <div id="siteVideoIntro" aria-label="Manikandan Agencies intro">
+    <video id="siteIntroVideo" autoplay muted playsinline preload="auto">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+  </div>
+
 
 <!-- ============ NAVBAR ============ -->
 <nav class="navbar" id="navbar">
@@ -989,13 +1734,11 @@ footer ul a:hover{color:var(--gold-light);}
     </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#collection">Fireworks</a></li>
-      <li><a href="#collection">Categories</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#products">Product</a></li>
+      <li><a href="#contact">Enquiry Form</a></li>
       <li><a href="#gallery">Gallery</a></li>
-      <li><a href="#why-us">Why Us</a></li>
-      <li><a href="#location">Location</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#showroom">Contact Us</a></li>
     </ul>
     <div class="nav-cta">
       <a href="#contact" class="btn btn-gold">Send Enquiry</a>
@@ -1010,24 +1753,97 @@ footer ul a:hover{color:var(--gold-light);}
   <button class="mobile-close" id="mobileCloseBtn" aria-label="Close menu">&times;</button>
   <a href="#home">Home</a>
   <a href="#about">About</a>
-  <a href="#collection">Fireworks</a>
+  <a href="#collection">Collection</a>
+  <a href="#products">Product</a>
   <a href="#gallery">Gallery</a>
-  <a href="#why-us">Why Us</a>
-  <a href="#location">Location</a>
+  <a href="#showroom">Showroom</a>
   <a href="#contact">Contact</a>
 </div>
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="home">
-  <!-- TEMPORARY IMAGE - REPLACE WITH ACTUAL SRI MANIKANDAN AGENCIES IMAGE -->
+  <!-- Desktop hero remains hidden in the price-list version. Mobile uses this slider. -->
   <div class="hero-bg" style="background-image:url(ui.png);"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-   
-   
+    <nav class="mobile-direct-nav" aria-label="Mobile navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About Us</a>
+      <a href="#products">Product</a>
+      <a href="#contact">Enquiry Form</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#showroom">Contact Us</a>
+    </nav>
+    <div class="mobile-center-logo-wrap" aria-label="Company logo">
+      <img class="mobile-center-logo" id="mobileCenterLogo" alt="Manikandan Agencies logo">
     </div>
-  
+    <div class="mobile-banner-slider" id="mobileBannerSlider" aria-label="Fireworks offers">
+      <div class="mobile-slide is-active">
+        <img src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?q=80&w=1200&auto=format&fit=crop" alt="Fireworks celebration banner 1">
+      </div>
+      <div class="mobile-slide">
+        <img src="https://images.unsplash.com/photo-1519671282429-b44660ead0a7?q=80&w=1200&auto=format&fit=crop" alt="Fireworks celebration banner 2">
+      </div>
+      <div class="mobile-slide">
+        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1200&auto=format&fit=crop" alt="Fireworks celebration banner 3">
+      </div>
+      <div class="mobile-slider-dots" aria-hidden="true">
+        <span class="active"></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
 </header>
+
+<!-- ============ FULL PRODUCT CATALOGUE ============ -->
+<section class="collection section" id="collection">
+  <div class="rail">
+    <div class="section-head reveal">
+      <p class="eyebrow">2026 Fireworks Collection</p>
+      <h2>50% OFF — Complete Fireworks Collection</h2>
+      <p>All products are listed in a clean menu-style price list. Select the items you need, set quantities and see your selected total instantly.</p>
+      <div class="discount-hero-strip"><span class="discount-spark">✦</span><strong>FLAT 50% DISCOUNT ON ALL PRODUCTS</strong><span class="discount-spark">✦</span></div>
+    </div>
+
+
+    <div class="price-list-download-wrap reveal">
+      <a class="price-list-download" href="Manikandan%20Agencies%20price%20list.pdf" download aria-label="Download Manikandan Agencies price list PDF">
+        <span class="pdf-icon">📄</span> Download Price List
+      </a>
+    </div>
+
+    <div class="catalogue-toolbar reveal">
+      <div class="cat-search">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" id="productSearch" placeholder="Search fireworks..." autocomplete="off">
+      </div>
+      <div class="cat-nav" id="catNav"><!-- Category pills rendered by JS --></div>
+    </div>
+
+    <p class="cat-result-note" id="resultNote"></p>
+
+    <div id="products" class="products-anchor" aria-hidden="true"></div>
+    <div class="product-grid" id="productGrid"><!-- Product cards rendered dynamically by JS from PRODUCTS array --></div>
+
+    <div class="selected-summary" id="selectedSummary">
+      <div class="selected-summary-head">
+        <div>
+          <span class="eyebrow">Your Selection</span>
+          <h3>Selected Items &amp; Total</h3>
+        </div>
+        <span class="selected-count" id="selectedSummaryCount">0 items</span>
+      </div>
+      <div class="selected-summary-list" id="selectedSummaryList">
+        <div class="selected-empty">Select any product above. Your selected products and discounted prices will appear here.</div>
+      </div>
+      <div class="selected-summary-total">
+        <span>Estimated Total</span>
+        <strong id="selectedSummaryTotal">₹0</strong>
+      </div>
+      <button type="button" class="btn btn-gold selected-send-btn" id="selectedSummaryBtn">Send Selected Items on WhatsApp</button>
+    </div>
+  </div>
+</section>
+
 
 <!-- ============ ABOUT ============ -->
 <section class="about section" id="about">
@@ -1040,7 +1856,7 @@ footer ul a:hover{color:var(--gold-light);}
       </div>
       <div class="discount-badge">
         <div class="discount-title">Mega Discount</div>
-        <div class="discount-percent">80%</div>
+        <div class="discount-percent">50%</div>
       </div>
       <div class="about-badge">
         <div class="num">1995</div>
@@ -1110,32 +1926,12 @@ footer ul a:hover{color:var(--gold-light);}
   </div>
 </section>
 
-<!-- ============ FULL PRODUCT CATALOGUE ============ -->
-<section class="collection section" id="collection">
-  <div class="rail">
-    <div class="section-head reveal">
-      <p class="eyebrow">Our Fireworks Collection</p>
-      <h2>Explore Our Complete Collection</h2>
-      <p>Browse our full 2026 range, tap to select what you need, then send your requirement straight to us on WhatsApp. Availability and quotation are shared privately — no prices are listed here.</p>
-    </div>
-
-    <div class="catalogue-toolbar reveal">
-      <div class="cat-search">
-        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        <input type="text" id="productSearch" placeholder="Search fireworks..." autocomplete="off">
-      </div>
-      <div class="cat-nav" id="catNav"><!-- Category pills rendered by JS --></div>
-    </div>
-
-    <p class="cat-result-note" id="resultNote"></p>
-
-    <div class="product-grid" id="productGrid"><!-- Product cards rendered dynamically by JS from PRODUCTS array --></div>
-  </div>
-</section>
-
 <!-- Sticky floating selection bar -->
 <div class="sticky-select-bar" id="stickyBar">
-  <span class="ssb-count" id="ssbCount"><strong>0</strong> Items Selected</span>
+  <div class="ssb-info">
+    <span class="ssb-count" id="ssbCount"><strong>0</strong> Items Selected</span>
+    <span class="ssb-total" id="ssbTotal">₹0</span>
+  </div>
   <button type="button" class="btn btn-gold" id="ssbSendBtn">Send Your Requirement</button>
 </div>
 
@@ -1184,7 +1980,7 @@ footer ul a:hover{color:var(--gold-light);}
           <textarea id="eqMsg" placeholder="Tell us anything else about your requirement"></textarea>
         </div>
         <button type="submit" class="btn btn-gold form-submit">Send Requirement on WhatsApp</button>
-        <p class="form-note">This opens WhatsApp with your enquiry pre-filled, ready to send. No prices are included — we'll share the current quotation privately.</p>
+        <p class="form-note">This opens WhatsApp with your selected products, quantities and estimated total pre-filled, ready to send.</p>
       </form>
     </div>
   </div>
@@ -1225,7 +2021,8 @@ footer ul a:hover{color:var(--gold-light);}
 </div>
 
 <!-- ============ LOCATION ============ -->
-<section class="location section" id="location">
+<section class="location section" id="showroom">
+  <span id="location" class="legacy-anchor" aria-hidden="true"></span>
   <div class="rail">
     <div class="section-head reveal">
       <p class="eyebrow">Visit Us</p>
@@ -1388,169 +2185,176 @@ footer ul a:hover{color:var(--gold-light);}
 
 <!-- ============ PRODUCT DATA (2026 Price List) ============ -->
 <script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var sourceLogo = document.querySelector('.brand img');
+    var mobileLogo = document.getElementById('mobileCenterLogo');
+    if(sourceLogo && mobileLogo){ mobileLogo.src = sourceLogo.src; }
+  });
+</script>
+<script>
 var PRODUCTS = [
-  {id:'p1',name:'3 ½” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p2',name:'3 ½’’ Spl Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p3',name:'3 ½” Spl Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p4',name:'4” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p5',name:'4” Deluxe Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p6',name:'4” Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p7',name:'2 ¾” Kuruvi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p8',name:'Gold Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p9',name:'Flower Pot Small',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p10',name:'Flower Pot Big',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p11',name:'Flower Pot Special',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p12',name:'Flower Pot Giant',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p13',name:'Flower Pot Rangeela (Colour Koti)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p14',name:'Flower Pot Ashoka',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p15',name:'Flower Pot Super Deluxe (2pcs)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
-  {id:'p16',name:'Trolls Topia Mini Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p17',name:'Splatoon Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p18',name:'Miniatures Red & Green',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p19',name:'Lava',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p20',name:'Redo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p21',name:'Undo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p22',name:'Jolly Rancher',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p23',name:'Amaze',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
+  {id:'p1',name:'3 ½” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:22},
+  {id:'p2',name:'3 ½’’ Spl Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:30},
+  {id:'p3',name:'3 ½” Spl Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:30},
+  {id:'p4',name:'4” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:44},
+  {id:'p5',name:'4” Deluxe Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:54},
+  {id:'p6',name:'4” Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:44},
+  {id:'p7',name:'2 ¾” Kuruvi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:16},
+  {id:'p8',name:'Gold Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:60},
+  {id:'p9',name:'Flower Pot Small',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:90},
+  {id:'p10',name:'Flower Pot Big',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p11',name:'Flower Pot Special',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:200},
+  {id:'p12',name:'Flower Pot Giant',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:430},
+  {id:'p13',name:'Flower Pot Rangeela (Colour Koti)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:440},
+  {id:'p14',name:'Flower Pot Ashoka',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:220},
+  {id:'p15',name:'Flower Pot Super Deluxe (2pcs)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:380},
+  {id:'p16',name:'Trolls Topia Mini Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
+  {id:'p17',name:'Splatoon Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p18',name:'Miniatures Red & Green',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
+  {id:'p19',name:'Lava',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p20',name:'Redo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p21',name:'Undo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p22',name:'Jolly Rancher',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
+  {id:'p23',name:'Amaze',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
   {id:'p24',name:'Golden Monet\'s',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p25',name:'6000',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p26',name:'Tweet',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p27',name:'Poppings',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p28',name:'Golden Peacock',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p29',name:'Color Crystal',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p30',name:'Rockstar',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p31',name:'Ground Chakkar Big',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p32',name:'Ground Chakkar Special',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p33',name:'Ground Chakkar Deluxe',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p34',name:'Ground Chakkar Ashoka',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p35',name:'4*4 Wheel',category:'Spin and Spark',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p36',name:'Wizz Chakkar',category:'Spin and Spark',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop'},
-  {id:'p37',name:'1 ½” Twinkling Star',category:'Twinkling Stars',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p38',name:'4” Deluxe Twinkling Star',category:'Twinkling Stars',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p39',name:'Baby Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop'},
-  {id:'p40',name:'Rocket Bomb',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop'},
-  {id:'p41',name:'Lunik Express',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop'},
-  {id:'p42',name:'2 Sound Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop'},
-  {id:'p43',name:'Musical Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop'},
-  {id:'p44',name:'Bullet Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p45',name:'Atom Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p46',name:'Hydro Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p47',name:'Tiger Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p48',name:'Classic Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p49',name:'Terror Bomb Green',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p50',name:'Terminator Bomb Green',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p51',name:'Red Bijili',category:'Loose Crackers',navGroup:'Sound Crackers',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p52',name:'Stripped Bijili',category:'Loose Crackers',navGroup:'Sound Crackers',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p53',name:'Traffic Master',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p54',name:'Lala Candles (Minion)',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p55',name:'Baby Mix',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p56',name:'Selfie Stick',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p57',name:'7 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p58',name:'7 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p59',name:'10 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p60',name:'10 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p61',name:'10 Cm Red Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p62',name:'10 Cm Green Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p63',name:'10 Cm Starplus Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p64',name:'15 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p65',name:'15 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p66',name:'30 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p67',name:'30 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p68',name:'30 Cm 5 in 1 Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p69',name:'30 Cm Red Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p70',name:'50 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p71',name:'50 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p72',name:'15 Cm Nano Tech Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p73',name:'30 Cm Nano Tech Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p74',name:'30 Cm Dancing Rose Electric Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Tube',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p75',name:'30 Cm Dancing Rose Yellow & Red Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Tube',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p76',name:'Lovely Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop'},
-  {id:'p77',name:'Sky Dancer',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p78',name:'Sky Wala',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p79',name:'Sky War',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p80',name:'Penta Magic',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p81',name:'1 Up',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p82',name:'2 Up',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p83',name:'Mini Siren (5 Pcs)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p84',name:'Mega Siren (2 Pcs)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p85',name:'Photo Flash',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p86',name:'Bada Peacock',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p87',name:'Ganga Jamuna (Flower Bomb)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p88',name:'Butterfly',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p89',name:'Drone',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p90',name:'Helicopter',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p91',name:'Pamparam',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p92',name:'Sunfeast',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p93',name:'Electric Stone',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p94',name:'Kitkat',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p95',name:'Assorted Cartoon',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p96',name:'Snake Table',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p97',name:'Shinchan',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p98',name:'Money Bank',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p99',name:'Emu Egg',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p100',name:'12 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p101',name:'12 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p102',name:'15 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p103',name:'Ak 30 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p104',name:'Jaguar 30 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p105',name:'Sweet 60 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p106',name:'Champions 100 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p107',name:'Sparkle 120 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p108',name:'Bigbooms 200 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p109',name:'Invincible 240 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop'},
-  {id:'p110',name:'1” Chotta Fancy',category:'Fancy Pipes',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p111',name:'5 Star Red',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p112',name:'5 Star Yellow',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p113',name:'5 Star Cocktail',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p114',name:'5 Star White',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p115',name:'Ping Pong 3 in 1 (3pcs)',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p116',name:'Sky Mirror',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p117',name:'SMS World',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p118',name:'Ideal Show',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p119',name:'Pyro Magic',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p120',name:'Mix Magic',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p121',name:'Pink Pearls',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p122',name:'Green Shower',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p123',name:'Golden Attack',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p124',name:'Kashmer Chilly',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p125',name:'Silver Line',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p126',name:'Instagram',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p127',name:'Whatsapp',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p128',name:'Twitter',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p129',name:'Facebook',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p130',name:'Telegram',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p131',name:'Nayagra Falls',category:'3.5" Fancy Special Nayagra Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p132',name:'Firefly Fusion',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p133',name:'Ninja Fighters',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p134',name:'Thunderbolts',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p135',name:'Dual Delight',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p136',name:'Dynamic Thunder',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p137',name:'Mermaid',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p138',name:'Glory Red',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p139',name:'Glory Green',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p140',name:'Glory Pearl White',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p141',name:'Glory Multi Colour',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p142',name:'7 Wings',category:'Seven Step Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p143',name:'City Jumpers (2pcs)',category:'Seven Step Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p144',name:'Holiday Series (3pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p145',name:'Sunrise Series (2pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p146',name:'Ring Series (2pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p147',name:'Robin Super Deluxe',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p148',name:'Micromax',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p149',name:'Robin 7up',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p150',name:'Roll Cap',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p151',name:'90 Watts',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p152',name:'Pistol 5G',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p153',name:'Madurai Malli',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p154',name:'Water Queen',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Pcs',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p155',name:'Peacock',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p156',name:'Old is Gold',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p157',name:'Feather',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p158',name:'Touch Me Falls',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p159',name:'Trend Wheel',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p160',name:'Mottu Patlu',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p161',name:'Colour Smoke',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p162',name:'Selfie Stick',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
+  {id:'p25',name:'6000',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p26',name:'Tweet',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p27',name:'Poppings',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p28',name:'Golden Peacock',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p29',name:'Color Crystal',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:200},
+  {id:'p30',name:'Rockstar',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:200},
+  {id:'p31',name:'Ground Chakkar Big',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:70},
+  {id:'p32',name:'Ground Chakkar Special',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:140},
+  {id:'p33',name:'Ground Chakkar Deluxe',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p34',name:'Ground Chakkar Ashoka',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:120},
+  {id:'p35',name:'4*4 Wheel',category:'Spin and Spark',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:340},
+  {id:'p36',name:'Wizz Chakkar',category:'Spin and Spark',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:294},
+  {id:'p37',name:'1 ½” Twinkling Star',category:'Twinkling Stars',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:60},
+  {id:'p38',name:'4” Deluxe Twinkling Star',category:'Twinkling Stars',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:160},
+  {id:'p39',name:'Baby Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop',price:70},
+  {id:'p40',name:'Rocket Bomb',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop',price:100},
+  {id:'p41',name:'Lunik Express',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p42',name:'2 Sound Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p43',name:'Musical Rocket',category:'Rockets',navGroup:'Rockets',pack:'1 Box',image:'https://images.unsplash.com/photo-1750586658145-5b05347bc733?q=80&w=900&auto=format&fit=crop',price:274},
+  {id:'p44',name:'Bullet Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:60},
+  {id:'p45',name:'Atom Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:100},
+  {id:'p46',name:'Hydro Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:132},
+  {id:'p47',name:'Tiger Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:320},
+  {id:'p48',name:'Classic Bomb',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:360},
+  {id:'p49',name:'Terror Bomb Green',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:240},
+  {id:'p50',name:'Terminator Bomb Green',category:'Sound Crackers',navGroup:'Sound Crackers',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p51',name:'Red Bijili',category:'Loose Crackers',navGroup:'Sound Crackers',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:64},
+  {id:'p52',name:'Stripped Bijili',category:'Loose Crackers',navGroup:'Sound Crackers',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:74},
+  {id:'p53',name:'Traffic Master',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:270},
+  {id:'p54',name:'Lala Candles (Minion)',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:240},
+  {id:'p55',name:'Baby Mix',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:240},
+  {id:'p56',name:'Selfie Stick',category:'Colour Candles',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:220},
+  {id:'p57',name:'7 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:24},
+  {id:'p58',name:'7 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:28},
+  {id:'p59',name:'10 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:44},
+  {id:'p60',name:'10 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:50},
+  {id:'p61',name:'10 Cm Red Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:74},
+  {id:'p62',name:'10 Cm Green Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:70},
+  {id:'p63',name:'10 Cm Starplus Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:56},
+  {id:'p64',name:'15 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:110},
+  {id:'p65',name:'15 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:120},
+  {id:'p66',name:'30 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p67',name:'30 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:140},
+  {id:'p68',name:'30 Cm 5 in 1 Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:146},
+  {id:'p69',name:'30 Cm Red Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:124},
+  {id:'p70',name:'50 Cm Electric Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:330},
+  {id:'p71',name:'50 Cm Color Sparklers',category:'Sparklers Premium Quality',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:360},
+  {id:'p72',name:'15 Cm Nano Tech Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:96},
+  {id:'p73',name:'30 Cm Nano Tech Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:98},
+  {id:'p74',name:'30 Cm Dancing Rose Electric Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Tube',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:444},
+  {id:'p75',name:'30 Cm Dancing Rose Yellow & Red Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Tube',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:508},
+  {id:'p76',name:'Lovely Sparklers',category:'High Quality Sparklers (Less Smoke)',navGroup:'Sparklers',pack:'1 Box',image:'https://images.unsplash.com/photo-1672755378493-29222e7ba28c?q=80&w=900&auto=format&fit=crop',price:204},
+  {id:'p77',name:'Sky Dancer',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:250},
+  {id:'p78',name:'Sky Wala',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:250},
+  {id:'p79',name:'Sky War',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:250},
+  {id:'p80',name:'Penta Magic',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:280},
+  {id:'p81',name:'1 Up',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:290},
+  {id:'p82',name:'2 Up',category:'Sky Shots',navGroup:'Sky Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p83',name:'Mini Siren (5 Pcs)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p84',name:'Mega Siren (2 Pcs)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p85',name:'Photo Flash',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
+  {id:'p86',name:'Bada Peacock',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:700},
+  {id:'p87',name:'Ganga Jamuna (Flower Bomb)',category:'Fancy Novelties',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:100},
+  {id:'p88',name:'Butterfly',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:200},
+  {id:'p89',name:'Drone',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p90',name:'Helicopter',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:220},
+  {id:'p91',name:'Pamparam',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:220},
+  {id:'p92',name:'Sunfeast',category:'Kids Novelties',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:320},
+  {id:'p93',name:'Electric Stone',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:24},
+  {id:'p94',name:'Kitkat',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:60},
+  {id:'p95',name:'Assorted Cartoon',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:70},
+  {id:'p96',name:'Snake Table',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:50},
+  {id:'p97',name:'Shinchan',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:252},
+  {id:'p98',name:'Money Bank',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:400},
+  {id:'p99',name:'Emu Egg',category:'Kids Fun Zone',navGroup:'Kids',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:350},
+  {id:'p100',name:'12 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p101',name:'12 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:360},
+  {id:'p102',name:'15 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:550},
+  {id:'p103',name:'Ak 30 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p104',name:'Jaguar 30 Shot (Multicolor)',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:860},
+  {id:'p105',name:'Sweet 60 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:1600},
+  {id:'p106',name:'Champions 100 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:2800},
+  {id:'p107',name:'Sparkle 120 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:3300},
+  {id:'p108',name:'Bigbooms 200 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:4800},
+  {id:'p109',name:'Invincible 240 Shot',category:'Multiple Aerial Shots',navGroup:'Aerial Shots',pack:'1 Box',image:'https://images.unsplash.com/photo-1760881973494-6df29de5e36f?q=80&w=900&auto=format&fit=crop',price:5600},
+  {id:'p110',name:'1” Chotta Fancy',category:'Fancy Pipes',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:80},
+  {id:'p111',name:'5 Star Red',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p112',name:'5 Star Yellow',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p113',name:'5 Star Cocktail',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p114',name:'5 Star White',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p115',name:'Ping Pong 3 in 1 (3pcs)',category:'2" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:600},
+  {id:'p116',name:'Sky Mirror',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:500},
+  {id:'p117',name:'SMS World',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:500},
+  {id:'p118',name:'Ideal Show',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:500},
+  {id:'p119',name:'Pyro Magic',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:500},
+  {id:'p120',name:'Mix Magic',category:'3" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:500},
+  {id:'p121',name:'Pink Pearls',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p122',name:'Green Shower',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p123',name:'Golden Attack',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p124',name:'Kashmer Chilly',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p125',name:'Silver Line',category:'3.5" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
+  {id:'p126',name:'Instagram',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:540},
+  {id:'p127',name:'Whatsapp',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:540},
+  {id:'p128',name:'Twitter',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:540},
+  {id:'p129',name:'Facebook',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:540},
+  {id:'p130',name:'Telegram',category:'3.5" Fancy GenZ Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:540},
+  {id:'p131',name:'Nayagra Falls',category:'3.5" Fancy Special Nayagra Series',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:560},
+  {id:'p132',name:'Firefly Fusion',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:780},
+  {id:'p133',name:'Ninja Fighters',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:780},
+  {id:'p134',name:'Thunderbolts',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:780},
+  {id:'p135',name:'Dual Delight',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:780},
+  {id:'p136',name:'Dynamic Thunder',category:'3.5" Fancy Double Balls',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:780},
+  {id:'p137',name:'Mermaid',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p138',name:'Glory Red',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p139',name:'Glory Green',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p140',name:'Glory Pearl White',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p141',name:'Glory Multi Colour',category:'4" Fancy',navGroup:'Fancy Series',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:760},
+  {id:'p142',name:'7 Wings',category:'Seven Step Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:750},
+  {id:'p143',name:'City Jumpers (2pcs)',category:'Seven Step Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:1240},
+  {id:'p144',name:'Holiday Series (3pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:1680},
+  {id:'p145',name:'Sunrise Series (2pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:1300},
+  {id:'p146',name:'Ring Series (2pcs)',category:'Premium Series',navGroup:'Premium',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:2450},
+  {id:'p147',name:'Robin Super Deluxe',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:250},
+  {id:'p148',name:'Micromax',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:60},
+  {id:'p149',name:'Robin 7up',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:320},
+  {id:'p150',name:'Roll Cap',category:'Color Matches',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:100},
+  {id:'p151',name:'90 Watts',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:360},
+  {id:'p152',name:'Pistol 5G',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:450},
+  {id:'p153',name:'Madurai Malli',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:460},
+  {id:'p154',name:'Water Queen',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Pcs',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:420},
+  {id:'p155',name:'Peacock',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p156',name:'Old is Gold',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:386},
+  {id:'p157',name:'Feather',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:200},
+  {id:'p158',name:'Touch Me Falls',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:260},
+  {id:'p159',name:'Trend Wheel',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:320},
+  {id:'p160',name:'Mottu Patlu',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:550},
+  {id:'p161',name:'Colour Smoke',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p162',name:'Selfie Stick',category:'2026 Blast Blast',navGroup:'Fancy Novelties',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
   {id:'p163',name:'21 Item Gift Box',category:'Gift Box',navGroup:'Gift Box',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
   {id:'p164',name:'25 Item Gift Box',category:'Gift Box',navGroup:'Gift Box',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
   {id:'p165',name:'30 Item Gift Box',category:'Gift Box',navGroup:'Gift Box',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop'},
@@ -1666,24 +2470,28 @@ var PRODUCTS = [
       var sel = selected.get(p.id);
       var isSel = !!sel;
       var qty = isSel ? sel.qty : 1;
+      var original = typeof p.price === 'number' ? p.price : null;
+      var sale = original !== null ? Math.round(original * 0.5) : null;
       return '' +
         '<div class="product-card' + (isSel ? ' selected' : '') + '" data-id="' + p.id + '">' +
           '<div class="p-body">' +
             '<p class="p-cat">' + p.category + '</p>' +
             '<p class="p-name">' + p.name + '</p>' +
-            '<p class="p-pack">Pack: ' + p.pack + '</p>' +
+            '<p class="p-pack">' + p.pack + '</p>' +
+            (original !== null
+              ? '<p class="p-price"><span class="old-price">₹' + original.toLocaleString('en-IN') + '</span><span class="discount-price">₹' + sale.toLocaleString('en-IN') + '</span><span class="discount-tag">50% OFF</span></p>'
+              : '<p class="p-price"><span class="discount-price">Price on enquiry</span></p>') +
+            (isSel && sale !== null ? '<p class="p-total">Selected total: ₹' + (sale * qty).toLocaleString('en-IN') + '</p>' : '') +
           '</div>' +
           '<div class="p-footer">' +
             '<button type="button" class="p-select-btn' + (isSel ? ' is-selected' : '') + '" data-id="' + p.id + '" aria-label="Select ' + p.name.replace(/"/g,'') + '">' +
-              (isSel ? (checkSvg + 'Selected') : 'Select') +
+              (isSel ? (checkSvg + 'Selected') : 'Add') +
             '</button>' +
-            (isSel ? (
-              '<div class="p-qty">' +
+            (isSel ? ('<div class="p-qty">' +
                 '<button type="button" class="qty-btn qty-minus" data-id="' + p.id + '" aria-label="Decrease quantity">&minus;</button>' +
                 '<span class="qty-val">' + qty + '</span>' +
                 '<button type="button" class="qty-btn qty-plus" data-id="' + p.id + '" aria-label="Increase quantity">&plus;</button>' +
-              '</div>'
-            ) : '') +
+              '</div>') : '') +
           '</div>' +
         '</div>';
     }).join('');
@@ -1713,7 +2521,7 @@ var PRODUCTS = [
     var p = PRODUCTS.find(function(x){ return x.id === id; });
     if(!p) return;
     if(selected.has(id)){ selected.delete(id); }
-    else{ selected.set(id, {name:p.name, qty:1}); }
+    else{ selected.set(id, {name:p.name, pack:p.pack, originalPrice:p.price || 0, price:typeof p.price === 'number' ? Math.round(p.price * 0.5) : 0, qty:1}); }
     renderGrid();
     renderSelectionUI();
   }
@@ -1731,7 +2539,13 @@ var PRODUCTS = [
   /* ---- Shared selection UI: sticky bar + contact-section chip row ---- */
   function renderSelectionUI(){
     var count = selected.size;
+    var selectedGrandTotal = 0;
+    selected.forEach(function(item){
+      selectedGrandTotal += (item.price || 0) * (item.qty || 1);
+    });
     ssbCount.innerHTML = '<strong>' + count + '</strong> Item' + (count === 1 ? '' : 's') + ' Selected';
+    var ssbTotal = document.getElementById('ssbTotal');
+    if(ssbTotal) ssbTotal.textContent = '₹' + selectedGrandTotal.toLocaleString('en-IN');
     stickyBar.classList.toggle('show', count > 0);
     document.body.classList.toggle('bar-active', count > 0);
 
@@ -1741,7 +2555,35 @@ var PRODUCTS = [
     } else {
       var items = Array.from(selected.values());
       selectionText.innerHTML = '<strong>' + count + '</strong> item' + (count === 1 ? '' : 's') + ' selected — remove any below, or add more from the collection above.';
-      chipRow.innerHTML = items.map(function(it){ return '<span class="chip">' + it.name + ' &times; ' + it.qty + '</span>'; }).join('');
+      chipRow.innerHTML = items.map(function(it){ return '<span class="chip">' + it.name + ' &times; ' + it.qty + ' — ₹' + (it.price * it.qty).toLocaleString('en-IN') + '</span>'; }).join('');
+    }
+
+    var summaryList = document.getElementById('selectedSummaryList');
+    var summaryCount = document.getElementById('selectedSummaryCount');
+    var summaryTotal = document.getElementById('selectedSummaryTotal');
+    if(summaryList && summaryCount && summaryTotal){
+      summaryCount.textContent = count + ' item' + (count === 1 ? '' : 's');
+      if(count === 0){
+        summaryList.innerHTML = '<div class="selected-empty">Select any product above. Your selected products and discounted prices will appear here.</div>';
+        summaryTotal.textContent = '₹0';
+      } else {
+        var total = 0;
+        summaryList.innerHTML = Array.from(selected.entries()).map(function(entry){
+          var id = entry[0], it = entry[1];
+          var lineTotal = it.price * it.qty;
+          total += lineTotal;
+          return '<div class="selected-summary-item">' +
+            '<span class="ssi-name">' + it.name + '</span>' +
+            '<span class="ssi-pack">' + (it.pack || '') + ' × ' + it.qty + '</span>' +
+            '<span class="ssi-price">₹' + lineTotal.toLocaleString('en-IN') + '</span>' +
+            '<button type="button" class="ssi-remove" data-id="' + id + '" aria-label="Remove ' + it.name.replace(/"/g,'') + '">&times;</button>' +
+          '</div>';
+        }).join('');
+        summaryTotal.textContent = '₹' + total.toLocaleString('en-IN');
+        summaryList.querySelectorAll('.ssi-remove').forEach(function(btn){
+          btn.addEventListener('click', function(){ toggleSelect(btn.getAttribute('data-id')); });
+        });
+      }
     }
     renderEqList();
   }
@@ -1767,7 +2609,7 @@ var PRODUCTS = [
     activeDetailId = id;
     pdCat.textContent = p.category;
     pdName.textContent = p.name;
-    pdPack.textContent = 'Pack: ' + p.pack;
+    pdPack.textContent = 'Pack: ' + p.pack + (typeof p.price === 'number' ? ' • MRP: ₹' + p.price.toLocaleString('en-IN') + ' • 50% OFF: ₹' + Math.round(p.price * 0.5).toLocaleString('en-IN') : ' • Price on enquiry');
     pdAddBtn.textContent = selected.has(id) ? 'Remove from Requirement' : 'Add to Requirement';
     pdModal.classList.add('open');
   }
@@ -1796,7 +2638,7 @@ var PRODUCTS = [
     selected.forEach(function(item, id){
       html += '' +
         '<div class="eq-item" data-id="' + id + '">' +
-          '<span class="eq-item-name">&check; ' + item.name + ' &mdash; Quantity: ' + item.qty + '</span>' +
+          '<span class="eq-item-name">&check; ' + item.name + ' — ' + (item.pack || '') + ' | ₹' + (item.price || 0).toLocaleString('en-IN') + ' × ' + item.qty + ' = ₹' + ((item.price || 0) * item.qty).toLocaleString('en-IN') + '</span>' +
           '<div class="eq-item-actions">' +
             '<button type="button" class="qty-btn qty-minus" data-id="' + id + '" aria-label="Decrease quantity">&minus;</button>' +
             '<span class="qty-val">' + item.qty + '</span>' +
@@ -1805,6 +2647,9 @@ var PRODUCTS = [
           '</div>' +
         '</div>';
     });
+    var grandTotal = 0;
+    selected.forEach(function(item){ grandTotal += (item.price || 0) * item.qty; });
+    html += '<div class="eq-grand-total"><strong>Grand Total: ₹' + grandTotal.toLocaleString('en-IN') + '</strong></div>';
     eqList.innerHTML = html;
     eqList.querySelectorAll('.qty-minus').forEach(function(btn){
       btn.addEventListener('click', function(){ changeQty(btn.getAttribute('data-id'), -1); });
@@ -1817,21 +2662,25 @@ var PRODUCTS = [
     });
   }
   ssbSendBtn.addEventListener('click', function(){ eqModal.classList.add('open'); });
+  var selectedSummaryBtn = document.getElementById('selectedSummaryBtn');
+  if(selectedSummaryBtn) selectedSummaryBtn.addEventListener('click', function(){ eqModal.classList.add('open'); });
   eqClose.addEventListener('click', function(){ eqModal.classList.remove('open'); });
   eqModal.addEventListener('click', function(e){ if(e.target === eqModal) eqModal.classList.remove('open'); });
 
-  /* ---- Build the shared WhatsApp message (no prices, ever) ---- */
+  /* ---- Build the shared WhatsApp message with discounted prices ---- */
   function buildWhatsAppMessage(name, phone, email, qty, msg){
     var items = Array.from(selected.values());
     var itemLines = items.length
-      ? items.map(function(it, i){ return (i + 1) + '. ' + it.name + ' — Quantity: ' + it.qty; }).join('\n')
+      ? items.map(function(it, i){ return (i + 1) + '. ' + it.name + ' | ' + (it.pack || '') + ' | ₹' + (it.price || 0).toLocaleString('en-IN') + ' × ' + it.qty + ' = ₹' + ((it.price || 0) * it.qty).toLocaleString('en-IN'); }).join('\n')
       : 'Not specified';
+    var grandTotal = items.reduce(function(sum, it){ return sum + ((it.price || 0) * it.qty); }, 0);
     var lines = [
       'Hello Manikandan Agencies & Manikandan Pyrotec,',
       '',
       'I would like to enquire about the following fireworks:',
       '',
       itemLines,
+      'Grand Total (after 50% discount): ₹' + grandTotal.toLocaleString('en-IN'),
       '',
       'Customer Details:',
       '',
@@ -2119,7 +2968,68 @@ var PRODUCTS = [
   });
 
 })();
+
+  /* ---- Mobile promotional slider ---- */
+  (function(){
+    var slider = document.getElementById('mobileBannerSlider');
+    if(!slider) return;
+    var slides = slider.querySelectorAll('.mobile-slide');
+    var dots = slider.querySelectorAll('.mobile-slider-dots span');
+    var index = 0;
+    function showSlide(next){
+      slides[index].classList.remove('is-active');
+      if(dots[index]) dots[index].classList.remove('active');
+      index = next % slides.length;
+      slides[index].classList.add('is-active');
+      if(dots[index]) dots[index].classList.add('active');
+    }
+    if(slides.length > 1){
+      setInterval(function(){ showSlide(index + 1); }, 4500);
+    }
+  })();
 </script>
 <div id="nightOverlay"><canvas id="fwCanvas"></canvas></div>
+
+
+<script>
+(function(){
+  const intro = document.getElementById('siteVideoIntro');
+  const video = document.getElementById('siteIntroVideo');
+  if(!intro || !video) return;
+
+  // Show the cinematic intro ONLY on mobile/tablet-sized screens.
+  if(window.matchMedia('(min-width: 769px)').matches){
+    intro.remove();
+    return;
+  }
+
+  document.body.classList.add('intro-active');
+
+  const finishIntro = () => {
+    if(intro.classList.contains('is-hidden')) return;
+    video.pause();
+    intro.classList.add('is-hidden');
+    document.body.classList.remove('intro-active');
+    setTimeout(() => { intro.remove(); }, 750);
+  };
+
+  video.addEventListener('ended', finishIntro, {once:true});
+
+  // Fallback: if the video cannot load/play, never block the website.
+  video.addEventListener('error', finishIntro, {once:true});
+
+  const playPromise = video.play();
+  if(playPromise && typeof playPromise.catch === 'function'){
+    playPromise.catch(() => finishIntro());
+  }
+
+  // Safety fallback for a video that has a broken/missing duration.
+  setTimeout(() => {
+    if(!intro.classList.contains('is-hidden') && video.readyState < 2){
+      finishIntro();
+    }
+  }, 5000);
+})();
+</script>
 </body>
-</html>
+</html>sd
