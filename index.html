@@ -1975,7 +1975,7 @@ body.intro-active{
         <span>Estimated Total</span>
         <strong id="selectedSummaryTotal">₹0</strong>
       </div>
-      <button type="button" class="btn btn-gold selected-send-btn" id="selectedSummaryBtn">Send Selected Items on WhatsApp</button>
+      <button type="button" class="btn btn-gold selected-send-btn" id="selectedSummaryBtn">Generate Bill & Submit Order</button>
     </div>
   </div>
 </section>
@@ -2115,8 +2115,8 @@ body.intro-active{
           <label for="eqMsg">Additional Message</label>
           <textarea id="eqMsg" placeholder="Tell us anything else about your requirement"></textarea>
         </div>
-        <button type="submit" class="btn btn-gold form-submit">Send Requirement on WhatsApp</button>
-        <p class="form-note">This opens WhatsApp with your selected products, quantities and estimated total pre-filled, ready to send.</p>
+        <button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
+        <p class="form-note">Your order will be saved and a bill PDF will be generated automatically.</p>
       </form>
     </div>
   </div>
@@ -2268,8 +2268,8 @@ body.intro-active{
           <label for="fMsg">Message</label>
           <textarea id="fMsg" placeholder="Tell us anything else about your requirement"></textarea>
         </div>
-        <button type="submit" class="btn btn-gold form-submit">Send Enquiry on WhatsApp</button>
-        <p class="form-note">This opens WhatsApp with your enquiry pre-filled, ready to send.</p>
+        <button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
+        <p class="form-note">Your order will be saved and a bill PDF will be generated automatically.</p>
       </form>
     </div>
   </div>
@@ -2964,67 +2964,76 @@ var PRODUCTS = [
     fwRafId = requestAnimationFrame(loop);
   }
 
-  function sendToWhatsApp(name, phone, email, qty, msg, btnEl){
-    var text = encodeURIComponent(buildWhatsAppMessage(name, phone, email, qty, msg));
-    if (btnEl) btnEl.classList.add('btn-firecracker-glow');
-    
-    var overlay = document.getElementById('nightOverlay');
-    if(overlay && canvas && ctx) {
-      overlay.classList.add('night-overlay-active');
+  /* ---- Submit order to Google Apps Script -> Google Sheet + PDF ---- */
+  var GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxh6Q2XLDJRsNCR-_1thiJL1UeGbeDNzBhjdcTbt_yTx4gbTvkVrrb1qNyoFTq4wJakZw/exec';
 
-      // Trigger Launch
-      resizeCanvas();
-      ctx.clearRect(0,0,canvas.width, canvas.height);
-      fwRockets = [];
-      fwEmbers = [];
-      fwLastTime = 0;
-      
-      var originX = window.innerWidth / 2;
-      var originY = window.innerHeight;
-      if (btnEl) {
-        var rect = btnEl.getBoundingClientRect();
-        originX = rect.left + rect.width / 2;
-        originY = rect.top + rect.height / 2;
-      }
-
-      // Launch 4 rockets
-      for(var i=0; i<4; i++) {
-        setTimeout(function() {
-          var targetY = window.innerHeight * 0.2 + Math.random() * (window.innerHeight * 0.2);
-          fwRockets.push(new Rocket(originX, originY, targetY, randomColor()));
-        }, i * 200);
-      }
-      
-      if(fwRafId) cancelAnimationFrame(fwRafId);
-      fwRafId = requestAnimationFrame(loop);
-
-      // Fade out overlay
-      setTimeout(function() {
-        overlay.classList.remove('night-overlay-active');
-      }, 2500);
-
-      // Redirect
-      setTimeout(function() {
-        if (btnEl) btnEl.classList.remove('btn-firecracker-glow');
-        cancelAnimationFrame(fwRafId);
-        ctx.clearRect(0,0,canvas.width, canvas.height);
-        window.open('https://wa.me/919442253612?text=' + text, '_blank', 'noopener');
-      }, 3000);
-    } else {
-      // Fallback if canvas is not available
-      setTimeout(function() {
-        if (btnEl) btnEl.classList.remove('btn-firecracker-glow');
-        window.open('https://wa.me/8220641865?text=' + text, '_blank', 'noopener');
-      }, 800);
+  function submitOrderToBackend(name, phone, email, qty, msg, btnEl){
+    if(!selected.size){
+      alert('Please select at least one product.');
+      return;
     }
+
+    var products = Array.from(selected.values()).map(function(it){
+      return {
+        name: it.name,
+        pack: it.pack || '',
+        qty: Number(it.qty || 1),
+        rate: Number(it.price || 0),
+        originalRate: Number(it.originalPrice || 0)
+      };
+    });
+
+    var payload = {
+      customerName: name,
+      mobile: phone,
+      email: email || '',
+      requirement: qty || '',
+      message: msg || '',
+      products: products
+    };
+
+    if(btnEl){
+      btnEl.disabled = true;
+      btnEl.classList.add('btn-firecracker-glow');
+      btnEl.textContent = 'Generating Bill...';
+    }
+
+    /*
+      Use a normal HTML POST form instead of fetch().
+      This avoids browser CORS restrictions with Google Apps Script
+      and opens the Apps Script success page in a new tab.
+    */
+    var form = document.createElement('form');
+    form.method = 'POST';
+    form.action = GOOGLE_APPS_SCRIPT_URL;
+    form.target = '_blank';
+    form.style.display = 'none';
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'payload';
+    input.value = JSON.stringify(payload);
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+
+    setTimeout(function(){
+      if(btnEl){
+        btnEl.disabled = false;
+        btnEl.classList.remove('btn-firecracker-glow');
+        btnEl.textContent = 'Generate Bill & Submit Order';
+      }
+    }, 2500);
   }
 
-  /* ---- Enquiry modal form -> WhatsApp ---- */
+  /* ---- Enquiry modal form -> Google Sheet + PDF ---- */
   var eqForm = document.getElementById('eqForm');
   eqForm.addEventListener('submit', function(e){
     e.preventDefault();
     var btnEl = e.target.querySelector('button[type="submit"]');
-    sendToWhatsApp(
+    submitOrderToBackend(
       document.getElementById('eqName').value.trim(),
       document.getElementById('eqPhone').value.trim(),
       document.getElementById('eqEmail').value.trim(),
@@ -3034,12 +3043,12 @@ var PRODUCTS = [
     );
   });
 
-  /* ---- Contact-section form -> WhatsApp (same shared selection) ---- */
+  /* ---- Contact-section form -> Google Sheet + PDF ---- */
   var form = document.getElementById('enquiryForm');
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var btnEl = e.target.querySelector('button[type="submit"]');
-    sendToWhatsApp(
+    submitOrderToBackend(
       document.getElementById('fName').value.trim(),
       document.getElementById('fPhone').value.trim(),
       document.getElementById('fEmail').value.trim(),
