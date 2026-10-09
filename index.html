@@ -2999,14 +2999,26 @@ var PRODUCTS = [
     }
 
     /*
-      Use a normal HTML POST form instead of fetch().
-      This avoids browser CORS restrictions with Google Apps Script
-      and opens the Apps Script success page in a new tab.
+      Submit through a hidden iframe: the customer stays on the website.
+      Apps Script reports success/failure back using postMessage.
     */
+    var frame = document.getElementById('orderSubmitFrame');
+    if (!frame) {
+      frame = document.createElement('iframe');
+      frame.id = 'orderSubmitFrame';
+      frame.name = 'orderSubmitFrame';
+      frame.title = 'Order submission';
+      frame.style.display = 'none';
+      document.body.appendChild(frame);
+    }
+
+    window.__pendingOrderButton = btnEl || null;
+    window.__orderResponseReceived = false;
+
     var form = document.createElement('form');
     form.method = 'POST';
     form.action = GOOGLE_APPS_SCRIPT_URL;
-    form.target = '_blank';
+    form.target = 'orderSubmitFrame';
     form.style.display = 'none';
 
     var input = document.createElement('input');
@@ -3014,19 +3026,63 @@ var PRODUCTS = [
     input.name = 'payload';
     input.value = JSON.stringify(payload);
     form.appendChild(input);
-
     document.body.appendChild(form);
     form.submit();
     form.remove();
 
-    setTimeout(function(){
-      if(btnEl){
-        btnEl.disabled = false;
-        btnEl.classList.remove('btn-firecracker-glow');
-        btnEl.textContent = 'Generate Bill & Submit Order';
-      }
-    }, 2500);
+    if (btnEl) btnEl.textContent = 'Submitting Order...';
+
+    // Safety fallback if the browser blocks the response message.
+    window.__orderFallbackTimer = window.setTimeout(function(){
+      if (window.__orderResponseReceived) return;
+      resetOrderButton_();
+      showOrderNotice_('Your order was sent. Please contact the shop if you do not receive confirmation.', false);
+    }, 12000);
   }
+
+  function resetOrderButton_(){
+    var btn = window.__pendingOrderButton;
+    if(btn){
+      btn.disabled = false;
+      btn.classList.remove('btn-firecracker-glow');
+      btn.textContent = 'Generate Bill & Submit Order';
+    }
+    window.__pendingOrderButton = null;
+  }
+
+  function showOrderNotice_(message, success){
+    var old = document.getElementById('orderSubmitNotice');
+    if(old) old.remove();
+    var notice = document.createElement('div');
+    notice.id = 'orderSubmitNotice';
+    notice.setAttribute('role', 'status');
+    notice.style.cssText = 'position:fixed;z-index:999999;left:50%;bottom:24px;transform:translateX(-50%);width:min(92vw,520px);padding:16px 20px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.25);font:600 15px/1.45 Arial,sans-serif;text-align:center;color:#fff;background:' + (success ? '#187642' : '#9b2c2c');
+    notice.textContent = message;
+    document.body.appendChild(notice);
+    window.setTimeout(function(){ if(notice.parentNode) notice.remove(); }, 7000);
+  }
+
+  window.addEventListener('message', function(event){
+    var data = event.data;
+    if(!data || data.type !== 'manikandan-order-result') return;
+    window.__orderResponseReceived = true;
+    if(window.__orderFallbackTimer) window.clearTimeout(window.__orderFallbackTimer);
+    resetOrderButton_();
+
+    if(data.success){
+      showOrderNotice_('Order submitted successfully! Bill No: ' + (data.billNo || '') + '. Thank you!', true);
+      selected.clear();
+      renderSelectionUI();
+      var modal = document.getElementById('enquiryModal');
+      if(modal) modal.classList.remove('active');
+      var eq = document.getElementById('eqForm');
+      if(eq) eq.reset();
+      var ef = document.getElementById('enquiryForm');
+      if(ef) ef.reset();
+    } else {
+      showOrderNotice_('Order could not be saved: ' + (data.message || 'Please try again.'), false);
+    }
+  });
 
   /* ---- Enquiry modal form -> Google Sheet + PDF ---- */
   var eqForm = document.getElementById('eqForm');
