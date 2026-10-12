@@ -856,10 +856,10 @@ button{font-family:inherit;cursor:pointer;}
 .pd-body .p-pack{margin-top:8px;font-size:.88rem;color:var(--charcoal-soft);}
 .pd-body .btn{margin-top:22px;width:100%;justify-content:center;}
 
-.enquiry-modal .modal-box{max-width:520px;}
-.eq-body{padding:30px 28px 34px;}
+.enquiry-modal .modal-box{max-width:520px;max-height:92vh;overflow-y:auto;overscroll-behavior:contain;}
+.eq-body{padding:24px 24px 26px;}
 .eq-body h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--maroon-deeper);}
-.eq-selected-list{margin-top:18px;display:flex;flex-direction:column;gap:8px;max-height:180px;overflow-y:auto;}
+.eq-selected-list{margin-top:14px;display:flex;flex-direction:column;gap:8px;max-height:clamp(90px,22vh,180px);overflow-y:auto;overscroll-behavior:contain;padding-right:3px;}
 .eq-item{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   padding:9px 12px;background:#fff;border:1px solid rgba(92,13,18,.14);border-radius:var(--radius-sm);
@@ -876,7 +876,8 @@ button{font-family:inherit;cursor:pointer;}
 .eq-grand-total .payable-row{padding:12px;border-radius:9px;background:#f1f8f2;color:#14532d;font-weight:800;font-size:1.05rem;}
 .eq-grand-total .payable-row strong{color:#14532d;font-size:1.2rem;}
 .eq-empty{font-size:.86rem;color:var(--charcoal-soft);font-style:italic;margin-top:16px;}
-.eq-body form{margin-top:24px;}
+.eq-body form{margin-top:16px;}
+@media(max-width:600px){.enquiry-modal .modal-box{width:calc(100vw - 20px);max-height:94dvh}.eq-body{padding:22px 16px 20px}.eq-body h3{padding-right:36px}.eq-item{padding:8px;gap:7px;font-size:.8rem}.eq-item .eq-item-actions{gap:7px}.eq-item .eq-item-actions .qty-btn{width:28px;height:28px}.eq-grand-total{margin-top:10px;gap:7px;padding-top:10px}.eq-body form{margin-top:13px}.eq-body .form-row{gap:10px}}
 
 /* ---------- GALLERY ---------- */
 .gallery{background:var(--navy);}
@@ -2103,6 +2104,7 @@ body.intro-active{
     <div class="eq-body">
       <h3>Selected Fireworks</h3>
       <div class="eq-selected-list" id="eqList"></div>
+      <div class="eq-grand-total" id="eqTotals" aria-live="polite"></div>
 
       <form id="eqForm">
         <div class="form-row">
@@ -2119,15 +2121,7 @@ body.intro-active{
           <label for="eqEmail">Email Address</label>
           <input type="email" id="eqEmail" placeholder="you@example.com">
         </div>
-        <div class="field">
-          <label for="eqQty">Quantity / Requirement</label>
-          <input type="text" id="eqQty" placeholder="e.g. Family pack for Diwali">
-        </div>
-        <div class="field">
-          <label for="eqMsg">Additional Message</label>
-          <textarea id="eqMsg" placeholder="Tell us anything else about your requirement"></textarea>
-        </div>
-        <button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
+<button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
         <p class="form-note">Your order will be saved and a bill PDF will be generated automatically.</p>
       </form>
     </div>
@@ -2272,15 +2266,7 @@ body.intro-active{
           <label for="fEmail">Email Address</label>
           <input type="email" id="fEmail" placeholder="you@example.com">
         </div>
-        <div class="field">
-          <label for="fQty">Quantity / Requirement</label>
-          <input type="text" id="fQty" placeholder="e.g. Family pack for Diwali">
-        </div>
-        <div class="field">
-          <label for="fMsg">Message</label>
-          <textarea id="fMsg" placeholder="Tell us anything else about your requirement"></textarea>
-        </div>
-        <button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
+<button type="submit" class="btn btn-gold form-submit">Generate Bill & Submit Order</button>
         <p class="form-note">Your order will be saved and a bill PDF will be generated automatically.</p>
       </form>
     </div>
@@ -2793,9 +2779,12 @@ var PRODUCTS = [
   var eqClose = document.getElementById('eqClose');
   var ssbSendBtn = document.getElementById('ssbSendBtn');
 
+  var eqTotals = document.getElementById('eqTotals');
+
   function renderEqList(){
     if(selected.size === 0){
       eqList.innerHTML = '<p class="eq-empty">Nothing selected yet — close this and browse the collection.</p>';
+      if(eqTotals) eqTotals.innerHTML = '';
       return;
     }
     var html = '';
@@ -2811,13 +2800,14 @@ var PRODUCTS = [
           '</div>' +
         '</div>';
     });
-    var totals = getOrderTotals();
-    html += '<div class="eq-grand-total">' +
-      '<div class="total-row"><span>Grand Total</span><strong>' + money(totals.originalTotal) + '</strong></div>' +
-      '<div class="total-row discount-row"><span>50% Discount</span><strong>−' + money(totals.discountAmount) + '</strong></div>' +
-      '<div class="total-row payable-row"><span>Amount Payable</span><strong>' + money(totals.payableTotal) + '</strong></div>' +
-      '</div>';
     eqList.innerHTML = html;
+    var totals = getOrderTotals();
+    if(eqTotals){
+      eqTotals.innerHTML =
+        '<div class="total-row"><span>Grand Total</span><strong>' + money(totals.originalTotal) + '</strong></div>' +
+        '<div class="total-row discount-row"><span>50% Discount</span><strong>−' + money(totals.discountAmount) + '</strong></div>' +
+        '<div class="total-row payable-row"><span>Amount Payable</span><strong>' + money(totals.payableTotal) + '</strong></div>';
+    }
     eqList.querySelectorAll('.qty-minus').forEach(function(btn){
       btn.addEventListener('click', function(){ changeQty(btn.getAttribute('data-id'), -1); });
     });
@@ -2856,12 +2846,6 @@ var PRODUCTS = [
       'Name: ' + (name || '-'),
       'Mobile: ' + (phone || '-'),
       'Email: ' + (email || '-'),
-      '',
-      'Quantity / Requirement:',
-      (qty || '-'),
-      '',
-      'Additional Message:',
-      (msg || '-'),
       '',
       'Please share the current availability and quotation.',
       '',
@@ -3073,8 +3057,8 @@ var PRODUCTS = [
       document.getElementById('eqName').value.trim(),
       document.getElementById('eqPhone').value.trim(),
       document.getElementById('eqEmail').value.trim(),
-      document.getElementById('eqQty').value.trim(),
-      document.getElementById('eqMsg').value.trim(),
+      '',
+      '',
       btnEl
     );
   });
@@ -3088,8 +3072,8 @@ var PRODUCTS = [
       document.getElementById('fName').value.trim(),
       document.getElementById('fPhone').value.trim(),
       document.getElementById('fEmail').value.trim(),
-      document.getElementById('fQty').value.trim(),
-      document.getElementById('fMsg').value.trim(),
+      '',
+      '',
       btnEl
     );
   });
