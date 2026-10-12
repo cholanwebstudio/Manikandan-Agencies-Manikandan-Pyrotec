@@ -573,6 +573,12 @@ button{font-family:inherit;cursor:pointer;}
 .selected-empty{padding:14px;text-align:center;color:var(--charcoal-soft);font-size:.86rem;border:1px dashed rgba(92,13,18,.18);border-radius:10px;}
 .selected-summary-total{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:14px;border-top:1px solid rgba(92,13,18,.14);color:var(--charcoal-soft);}
 .selected-summary-total strong{font-size:1.3rem;color:var(--maroon);}
+.selected-summary-totals{display:grid;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(92,13,18,.14);}
+.selected-summary-totals .total-row{display:flex;align-items:center;justify-content:space-between;gap:12px;color:var(--charcoal-soft);}
+.selected-summary-totals .total-row strong{color:var(--maroon);font-size:1rem;}
+.selected-summary-totals .discount-row strong{color:#187642;}
+.selected-summary-totals .payable-row{padding:13px 14px;border-radius:10px;background:#f1f8f2;color:#14532d;font-weight:800;}
+.selected-summary-totals .payable-row strong{font-size:1.35rem;color:#14532d;}
 .selected-send-btn{margin-top:14px;width:100%;justify-content:center;}
 .legacy-anchor{display:block;position:relative;top:-100px;visibility:hidden;}
 
@@ -863,7 +869,12 @@ button{font-family:inherit;cursor:pointer;}
 .eq-item .eq-item-actions{display:flex;align-items:center;gap:10px;flex:none;}
 .eq-item .eq-item-actions .qty-btn{width:26px;height:26px;font-size:.9rem;}
 .eq-item .eq-remove{background:none;border:none;color:var(--maroon);font-size:1.1rem;line-height:1;flex:none;}
-.eq-grand-total{margin-top:14px;text-align:right;font-size:1rem;color:var(--maroon);padding-top:12px;border-top:1px solid rgba(92,13,18,.18)}
+.eq-grand-total{margin-top:14px;display:grid;gap:9px;font-size:.95rem;color:var(--maroon);padding-top:12px;border-top:1px solid rgba(92,13,18,.18)}
+.eq-grand-total .total-row{display:flex;justify-content:space-between;gap:12px;align-items:center;}
+.eq-grand-total .total-row strong{white-space:nowrap;}
+.eq-grand-total .discount-row strong{color:#187642;}
+.eq-grand-total .payable-row{padding:12px;border-radius:9px;background:#f1f8f2;color:#14532d;font-weight:800;font-size:1.05rem;}
+.eq-grand-total .payable-row strong{color:#14532d;font-size:1.2rem;}
 .eq-empty{font-size:.86rem;color:var(--charcoal-soft);font-style:italic;margin-top:16px;}
 .eq-body form{margin-top:24px;}
 
@@ -1964,15 +1975,16 @@ body.intro-active{
       <div class="selected-summary-head">
         <div>
           <span class="eyebrow">Your Selection</span>
-          <h3>Selected Items &amp; Total</h3>
+          <h3>Selected Fireworks</h3>
         </div>
         <span class="selected-count" id="selectedSummaryCount">0 items</span>
       </div>
       <div class="selected-summary-list" id="selectedSummaryList">
-        <div class="selected-empty">Select any product above. Your selected products and discounted prices will appear here.</div>
+        <div class="selected-empty">Select products above. Original total, discount, and payable amount will appear here.</div>
       </div>
+      <div class="selected-summary-totals" id="selectedSummaryTotals" aria-live="polite"></div>
       <div class="selected-summary-total">
-        <span>Estimated Total</span>
+        <span>Amount Payable</span>
         <strong id="selectedSummaryTotal">₹0</strong>
       </div>
       <button type="button" class="btn btn-gold selected-send-btn" id="selectedSummaryBtn">Generate Bill & Submit Order</button>
@@ -2673,15 +2685,24 @@ var PRODUCTS = [
   }
 
   /* ---- Shared selection UI: sticky bar + contact-section chip row ---- */
+  function getOrderTotals(){
+    var originalTotal = 0;
+    var payableTotal = 0;
+    selected.forEach(function(item){
+      originalTotal += Number(item.originalPrice || 0) * Number(item.qty || 1);
+      payableTotal += Number(item.price || 0) * Number(item.qty || 1);
+    });
+    return { originalTotal: originalTotal, discountAmount: originalTotal - payableTotal, payableTotal: payableTotal };
+  }
+
+  function money(value){ return '₹' + Number(value || 0).toLocaleString('en-IN'); }
+
   function renderSelectionUI(){
     var count = selected.size;
-    var selectedGrandTotal = 0;
-    selected.forEach(function(item){
-      selectedGrandTotal += (item.price || 0) * (item.qty || 1);
-    });
+    var totals = getOrderTotals();
     ssbCount.innerHTML = '<strong>' + count + '</strong> Item' + (count === 1 ? '' : 's') + ' Selected';
     var ssbTotal = document.getElementById('ssbTotal');
-    if(ssbTotal) ssbTotal.textContent = '₹' + selectedGrandTotal.toLocaleString('en-IN');
+    if(ssbTotal) ssbTotal.textContent = money(totals.payableTotal);
     stickyBar.classList.toggle('show', count > 0);
     document.body.classList.toggle('bar-active', count > 0);
 
@@ -2691,7 +2712,7 @@ var PRODUCTS = [
     } else {
       var items = Array.from(selected.values());
       selectionText.innerHTML = '<strong>' + count + '</strong> item' + (count === 1 ? '' : 's') + ' selected — remove any below, or add more from the collection above.';
-      chipRow.innerHTML = items.map(function(it){ return '<span class="chip">' + it.name + ' &times; ' + it.qty + ' — ₹' + (it.price * it.qty).toLocaleString('en-IN') + '</span>'; }).join('');
+      chipRow.innerHTML = items.map(function(it){ return '<span class="chip">' + it.name + ' × ' + it.qty + ' — ' + money(it.price * it.qty) + '</span>'; }).join('');
     }
 
     var summaryList = document.getElementById('selectedSummaryList');
@@ -2700,22 +2721,29 @@ var PRODUCTS = [
     if(summaryList && summaryCount && summaryTotal){
       summaryCount.textContent = count + ' item' + (count === 1 ? '' : 's');
       if(count === 0){
-        summaryList.innerHTML = '<div class="selected-empty">Select any product above. Your selected products and discounted prices will appear here.</div>';
+        summaryList.innerHTML = '<div class="selected-empty">Select products above. Original total, discount, and payable amount will appear here.</div>';
         summaryTotal.textContent = '₹0';
+        var totalsBox = document.getElementById('selectedSummaryTotals');
+        if(totalsBox) totalsBox.innerHTML = '';
       } else {
-        var total = 0;
         summaryList.innerHTML = Array.from(selected.entries()).map(function(entry){
           var id = entry[0], it = entry[1];
           var lineTotal = it.price * it.qty;
-          total += lineTotal;
+          var originalLine = it.originalPrice * it.qty;
           return '<div class="selected-summary-item">' +
             '<span class="ssi-name">' + it.name + '</span>' +
             '<span class="ssi-pack">' + (it.pack || '') + ' × ' + it.qty + '</span>' +
-            '<span class="ssi-price">₹' + lineTotal.toLocaleString('en-IN') + '</span>' +
-            '<button type="button" class="ssi-remove" data-id="' + id + '" aria-label="Remove ' + it.name.replace(/"/g,'') + '">&times;</button>' +
+            '<span class="ssi-price"><del>' + money(originalLine) + '</del> ' + money(lineTotal) + '</span>' +
+            '<button type="button" class="ssi-remove" data-id="' + id + '" aria-label="Remove item">×</button>' +
           '</div>';
         }).join('');
-        summaryTotal.textContent = '₹' + total.toLocaleString('en-IN');
+        summaryTotal.textContent = money(totals.payableTotal);
+        var totalsBox = document.getElementById('selectedSummaryTotals');
+        if(totalsBox){
+          totalsBox.innerHTML = '<div class="total-row"><span>Grand Total</span><strong>' + money(totals.originalTotal) + '</strong></div>' +
+            '<div class="total-row discount-row"><span>50% Discount</span><strong>−' + money(totals.discountAmount) + '</strong></div>' +
+            '<div class="total-row payable-row"><span>Amount Payable</span><strong>' + money(totals.payableTotal) + '</strong></div>';
+        }
         summaryList.querySelectorAll('.ssi-remove').forEach(function(btn){
           btn.addEventListener('click', function(){ toggleSelect(btn.getAttribute('data-id')); });
         });
@@ -2774,7 +2802,7 @@ var PRODUCTS = [
     selected.forEach(function(item, id){
       html += '' +
         '<div class="eq-item" data-id="' + id + '">' +
-          '<span class="eq-item-name">&check; ' + item.name + ' — ' + (item.pack || '') + ' | ₹' + (item.price || 0).toLocaleString('en-IN') + ' × ' + item.qty + ' = ₹' + ((item.price || 0) * item.qty).toLocaleString('en-IN') + '</span>' +
+          '<span class="eq-item-name">✓ ' + item.name + ' — ' + (item.pack || '') + '<br><del>' + money((item.originalPrice || 0) * item.qty) + '</del> ' + money((item.price || 0) * item.qty) + ' (' + item.qty + ' ×)</span>' +
           '<div class="eq-item-actions">' +
             '<button type="button" class="qty-btn qty-minus" data-id="' + id + '" aria-label="Decrease quantity">&minus;</button>' +
             '<span class="qty-val">' + item.qty + '</span>' +
@@ -2783,9 +2811,12 @@ var PRODUCTS = [
           '</div>' +
         '</div>';
     });
-    var grandTotal = 0;
-    selected.forEach(function(item){ grandTotal += (item.price || 0) * item.qty; });
-    html += '<div class="eq-grand-total"><strong>Grand Total: ₹' + grandTotal.toLocaleString('en-IN') + '</strong></div>';
+    var totals = getOrderTotals();
+    html += '<div class="eq-grand-total">' +
+      '<div class="total-row"><span>Grand Total</span><strong>' + money(totals.originalTotal) + '</strong></div>' +
+      '<div class="total-row discount-row"><span>50% Discount</span><strong>−' + money(totals.discountAmount) + '</strong></div>' +
+      '<div class="total-row payable-row"><span>Amount Payable</span><strong>' + money(totals.payableTotal) + '</strong></div>' +
+      '</div>';
     eqList.innerHTML = html;
     eqList.querySelectorAll('.qty-minus').forEach(function(btn){
       btn.addEventListener('click', function(){ changeQty(btn.getAttribute('data-id'), -1); });
@@ -2816,7 +2847,9 @@ var PRODUCTS = [
       'I would like to enquire about the following fireworks:',
       '',
       itemLines,
-      'Grand Total (after 50% discount): ₹' + grandTotal.toLocaleString('en-IN'),
+      'Grand Total (before discount): ₹' + items.reduce(function(sum, it){ return sum + ((it.originalPrice || 0) * it.qty); }, 0).toLocaleString('en-IN'),
+      '50% Discount: ₹' + (items.reduce(function(sum, it){ return sum + ((it.originalPrice || 0) * it.qty); }, 0) - grandTotal).toLocaleString('en-IN'),
+      'Amount Payable: ₹' + grandTotal.toLocaleString('en-IN'),
       '',
       'Customer Details:',
       '',
@@ -2989,7 +3022,10 @@ var PRODUCTS = [
       email: email || '',
       requirement: qty || '',
       message: msg || '',
-      products: products
+      products: products,
+      originalTotal: products.reduce(function(sum, it){ return sum + (it.originalRate * it.qty); }, 0),
+      discountAmount: products.reduce(function(sum, it){ return sum + ((it.originalRate - it.rate) * it.qty); }, 0),
+      payableTotal: products.reduce(function(sum, it){ return sum + (it.rate * it.qty); }, 0)
     };
 
     if(btnEl){
@@ -2999,26 +3035,14 @@ var PRODUCTS = [
     }
 
     /*
-      Submit through a hidden iframe: the customer stays on the website.
-      Apps Script reports success/failure back using postMessage.
+      Use a normal HTML POST form instead of fetch().
+      This avoids browser CORS restrictions with Google Apps Script
+      and opens the Apps Script success page in a new tab.
     */
-    var frame = document.getElementById('orderSubmitFrame');
-    if (!frame) {
-      frame = document.createElement('iframe');
-      frame.id = 'orderSubmitFrame';
-      frame.name = 'orderSubmitFrame';
-      frame.title = 'Order submission';
-      frame.style.display = 'none';
-      document.body.appendChild(frame);
-    }
-
-    window.__pendingOrderButton = btnEl || null;
-    window.__orderResponseReceived = false;
-
     var form = document.createElement('form');
     form.method = 'POST';
     form.action = GOOGLE_APPS_SCRIPT_URL;
-    form.target = 'orderSubmitFrame';
+    form.target = '_blank';
     form.style.display = 'none';
 
     var input = document.createElement('input');
@@ -3026,63 +3050,19 @@ var PRODUCTS = [
     input.name = 'payload';
     input.value = JSON.stringify(payload);
     form.appendChild(input);
+
     document.body.appendChild(form);
     form.submit();
     form.remove();
 
-    if (btnEl) btnEl.textContent = 'Submitting Order...';
-
-    // Safety fallback if the browser blocks the response message.
-    window.__orderFallbackTimer = window.setTimeout(function(){
-      if (window.__orderResponseReceived) return;
-      resetOrderButton_();
-      showOrderNotice_('Your order was sent. Please contact the shop if you do not receive confirmation.', false);
-    }, 12000);
+    setTimeout(function(){
+      if(btnEl){
+        btnEl.disabled = false;
+        btnEl.classList.remove('btn-firecracker-glow');
+        btnEl.textContent = 'Generate Bill & Submit Order';
+      }
+    }, 2500);
   }
-
-  function resetOrderButton_(){
-    var btn = window.__pendingOrderButton;
-    if(btn){
-      btn.disabled = false;
-      btn.classList.remove('btn-firecracker-glow');
-      btn.textContent = 'Generate Bill & Submit Order';
-    }
-    window.__pendingOrderButton = null;
-  }
-
-  function showOrderNotice_(message, success){
-    var old = document.getElementById('orderSubmitNotice');
-    if(old) old.remove();
-    var notice = document.createElement('div');
-    notice.id = 'orderSubmitNotice';
-    notice.setAttribute('role', 'status');
-    notice.style.cssText = 'position:fixed;z-index:999999;left:50%;bottom:24px;transform:translateX(-50%);width:min(92vw,520px);padding:16px 20px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.25);font:600 15px/1.45 Arial,sans-serif;text-align:center;color:#fff;background:' + (success ? '#187642' : '#9b2c2c');
-    notice.textContent = message;
-    document.body.appendChild(notice);
-    window.setTimeout(function(){ if(notice.parentNode) notice.remove(); }, 7000);
-  }
-
-  window.addEventListener('message', function(event){
-    var data = event.data;
-    if(!data || data.type !== 'manikandan-order-result') return;
-    window.__orderResponseReceived = true;
-    if(window.__orderFallbackTimer) window.clearTimeout(window.__orderFallbackTimer);
-    resetOrderButton_();
-
-    if(data.success){
-      showOrderNotice_('Order submitted successfully! Bill No: ' + (data.billNo || '') + '. Thank you!', true);
-      selected.clear();
-      renderSelectionUI();
-      var modal = document.getElementById('enquiryModal');
-      if(modal) modal.classList.remove('active');
-      var eq = document.getElementById('eqForm');
-      if(eq) eq.reset();
-      var ef = document.getElementById('enquiryForm');
-      if(ef) ef.reset();
-    } else {
-      showOrderNotice_('Order could not be saved: ' + (data.message || 'Please try again.'), false);
-    }
-  });
 
   /* ---- Enquiry modal form -> Google Sheet + PDF ---- */
   var eqForm = document.getElementById('eqForm');
