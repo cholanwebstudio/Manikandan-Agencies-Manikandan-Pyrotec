@@ -797,6 +797,15 @@ button{font-family:inherit;cursor:pointer;}
   .p-select-btn{min-width:82px;padding:8px 10px;font-size:.64rem;}
 }
 
+/* Show only the newly assigned local numbered cracker images; preserve menu layout for other products. */
+.product-card:has(.p-image-wrap){grid-template-columns:100px minmax(0,1fr) auto;gap:12px;}
+.product-card:has(.p-image-wrap) .p-image-wrap{display:flex !important;width:100px;height:82px;padding:5px;border:0;border-radius:8px;overflow:hidden;}
+.product-card:has(.p-image-wrap) .p-image{width:100%;height:100%;object-fit:contain;}
+@media(max-width:768px){
+  .product-card:has(.p-image-wrap){grid-template-columns:72px minmax(0,1fr) auto;gap:9px;}
+  .product-card:has(.p-image-wrap) .p-image-wrap{width:72px;height:76px;}
+}
+
 /* Sticky selection bar (floating) — hidden until products selected */
 .sticky-select-bar{
   position:fixed;left:50%;bottom:24px;transform:translate(-50%,0);
@@ -2327,34 +2336,34 @@ body.intro-active{
 </script>
 <script>
 var PRODUCTS = [
-  {id:'p1',name:'3 ½” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:22},
-  {id:'p2',name:'3 ½’’ Spl Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:30},
-  {id:'p3',name:'3 ½” Spl Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:30},
-  {id:'p4',name:'4” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:44},
-  {id:'p5',name:'4” Deluxe Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:54},
-  {id:'p6',name:'4” Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:44},
-  {id:'p7',name:'2 ¾” Kuruvi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:16},
-  {id:'p8',name:'Gold Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:60},
-  {id:'p9',name:'Flower Pot Small',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:90},
-  {id:'p10',name:'Flower Pot Big',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:130},
-  {id:'p11',name:'Flower Pot Special',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:200},
-  {id:'p12',name:'Flower Pot Giant',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:430},
-  {id:'p13',name:'Flower Pot Rangeela (Colour Koti)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:440},
-  {id:'p14',name:'Flower Pot Ashoka',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:220},
-  {id:'p15',name:'Flower Pot Super Deluxe (2pcs)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'https://images.unsplash.com/photo-1761155228369-5759fb2aa063?q=80&w=900&auto=format&fit=crop',price:380},
-  {id:'p16',name:'Trolls Topia Mini Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
-  {id:'p17',name:'Splatoon Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:520},
-  {id:'p18',name:'Miniatures Red & Green',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
-  {id:'p19',name:'Lava',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
-  {id:'p20',name:'Redo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
-  {id:'p21',name:'Undo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:130},
-  {id:'p22',name:'Jolly Rancher',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
-  {id:'p23',name:'Amaze',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:280},
-  {id:'p24',name:'Golden Monet\'s',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop'},
-  {id:'p25',name:'6000',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
-  {id:'p26',name:'Tweet',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
-  {id:'p27',name:'Poppings',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
-  {id:'p28',name:'Golden Peacock',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:300},
+  {id:'p1',name:'3 ½” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'1.jpeg',price:22},
+  {id:'p2',name:'3 ½’’ Spl Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'2.jpeg',price:30},
+  {id:'p3',name:'3 ½” Spl Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'3.jpeg',price:30},
+  {id:'p4',name:'4” Lakshmi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'4.jpeg',price:44},
+  {id:'p5',name:'4” Deluxe Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'5.jpeg',price:54},
+  {id:'p6',name:'4” Jocker Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'6.jpeg',price:44},
+  {id:'p7',name:'2 ¾” Kuruvi Crackers',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'7.jpeg',price:16},
+  {id:'p8',name:'Gold Lakshmi',category:'Flash Light Crackers',navGroup:'Flash Light',pack:'1 Pkt',image:'8.jpeg',price:60},
+  {id:'p9',name:'Flower Pot Small',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'9.jpeg',price:90},
+  {id:'p10',name:'Flower Pot Big',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'11.jpeg',price:130},
+  {id:'p11',name:'Flower Pot Special',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'12.jpeg',price:200},
+  {id:'p12',name:'Flower Pot Giant',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'13.jpeg',price:430},
+  {id:'p13',name:'Flower Pot Rangeela (Colour Koti)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'14.jpeg',price:440},
+  {id:'p14',name:'Flower Pot Ashoka',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'15.jpeg',price:220},
+  {id:'p15',name:'Flower Pot Super Deluxe (2pcs)',category:'Flower Pots',navGroup:'Flower Pots',pack:'1 Box',image:'16.jpeg',price:380},
+  {id:'p16',name:'Trolls Topia Mini Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'17.jpeg',price:280},
+  {id:'p17',name:'Splatoon Tricolour',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'18.jpeg',price:520},
+  {id:'p18',name:'Miniatures Red & Green',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'19.jpeg',price:280},
+  {id:'p19',name:'Lava',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'20.jpeg',price:130},
+  {id:'p20',name:'Redo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'21.jpeg',price:130},
+  {id:'p21',name:'Undo',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'22.jpeg',price:130},
+  {id:'p22',name:'Jolly Rancher',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'23.jpeg',price:280},
+  {id:'p23',name:'Amaze',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'23.jpeg',price:280},
+  {id:'p24',name:'Golden Monet\'s',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'24.jpeg'},
+  {id:'p25',name:'6000',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'26.jpeg',price:300},
+  {id:'p26',name:'Tweet',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'26.jpeg',price:300},
+  {id:'p27',name:'Poppings',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'27.jpeg',price:300},
+  {id:'p28',name:'Golden Peacock',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'28.jpeg',price:300},
   {id:'p29',name:'Color Crystal',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:200},
   {id:'p30',name:'Rockstar',category:'Colour Fountain',navGroup:'Colour Fountain',pack:'1 Box',image:'https://images.unsplash.com/photo-1783903509556-a1b3fcf45f73?q=80&w=900&auto=format&fit=crop',price:200},
   {id:'p31',name:'Ground Chakkar Big',category:'Ground Chakkars',navGroup:'Chakkars',pack:'1 Box',image:'https://images.unsplash.com/photo-1747933166392-5f0bbd37da57?q=80&w=900&auto=format&fit=crop',price:70},
@@ -2608,6 +2617,7 @@ var PRODUCTS = [
       var sale = original !== null ? Math.round(original * 0.5) : null;
       return '' +
         '<div class="product-card' + (isSel ? ' selected' : '') + '" data-id="' + p.id + '">' +
+          (/^\d+\.jpeg$/i.test(p.image || '') ? '<div class="p-image-wrap"><img class="p-image" src="' + p.image + '" alt="' + p.name.replace(/"/g,'') + '" loading="lazy"></div>' : '') +
           '<div class="p-body">' +
             '<p class="p-cat">' + p.category + '</p>' +
             '<p class="p-name">' + p.name + '</p>' +
